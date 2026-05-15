@@ -1,0 +1,51 @@
+name: Deploy Production
+on:
+  push:
+    branches: [main]
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with: { node-version: '22.x', cache: 'npm' }
+      - run: npm ci
+      - run: npm test
+
+  deploy:
+    needs: test
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22.x'
+          cache: 'npm'
+      - run: npm ci
+      - run: npm run build
+      # Option A: Vercel
+      - run: npx vercel --prod --token=${{ secrets.VERCEL_TOKEN }}
+      # Option B: S3 + CloudFront
+      # - uses: aws-actions/configure-aws-credentials@v4
+      # - run: aws s3 sync dist/ s3://${{ secrets.PROD_BUCKET }} --delete
+      # - run: aws cloudfront create-invalidation --distribution-id ${{ secrets.CF_DIST }} --paths "/*"
+      # Option C: VPS via SCP
+      # - uses: appleboy/scp-action@v0
+      #   with:
+      #     host: ${{ secrets.VPS_HOST }}
+      #     username: deploy
+      #     key: ${{ secrets.VPS_SSH_KEY }}
+      #     source: "dist/*"
+      #     target: "/var/www/app/"
+      - name: Notify on failure
+        if: failure()
+        uses: actions/github-script@v7
+        with:
+          script: |
+            github.rest.issues.createComment({
+              issue_number: context.issue.number,
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              body: 'Production deploy failed!'
+            })

@@ -1,0 +1,41 @@
+{
+  "name": "react-fullstack-pipeline",
+  "version": "2.0.0",
+  "description": "React Full-Stack Development Pipeline — from brainstorming to backend deployment. 20 skills covering the complete React development lifecycle.",
+  "author": "React Pipeline Team",
+  "keywords": ["react", "frontend", "fullstack", "deployment", "backend", "pipeline", "tdd", "code-review"],
+  "skills": "./skills/",
+  "hooks": "./hooks/hooks.json",
+  "subagent_type": [
+    {
+      "name": "react-implementer",
+      "description": "Execute single React implementation task from plan. Creates components, hooks, pages following TDD.",
+      "tools": ["Read", "Write", "Edit", "Bash", "Glob", "Grep"]
+    },
+    {
+      "name": "react-spec-reviewer",
+      "description": "Verify React implementation matches spec requirements. Checks component coverage, props interfaces, behavior accuracy.",
+      "tools": ["Read", "Glob", "Grep"]
+    },
+    {
+      "name": "react-code-reviewer",
+      "description": "Review React code quality: best practices, hook rules, performance, accessibility, file organization.",
+      "tools": ["Read", "Glob", "Grep"]
+    },
+    {
+      "name": "react-trainer",
+      "description": "Train a GitHub React repo into the knowledge base. Clones, explores, extracts api.md + patterns.md, updates registry.",
+      "tools": ["Read", "Write", "Edit", "Bash", "Glob", "Grep", "WebFetch", "WebSearch"]
+    },
+    {
+      "name": "react-deployer",
+      "description": "Execute deployment tasks: build, configure, deploy, verify. Server setup, CI/CD config, container builds.",
+      "tools": ["Read", "Write", "Edit", "Bash", "Glob", "Grep"]
+    },
+    {
+      "name": "react-backend-engineer",
+      "description": "Build backend API endpoints, database schemas, auth flows. Writes server code, tests, API documentation.",
+      "tools": ["Read", "Write", "Edit", "Bash", "Glob", "Grep"]
+    }
+  ]
+}

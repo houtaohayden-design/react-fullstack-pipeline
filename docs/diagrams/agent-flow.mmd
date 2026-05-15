@@ -1,0 +1,34 @@
+sequenceDiagram
+    participant P as Pipeline (subagent-dev)
+    participant I as react-implementer
+    participant SR as react-spec-reviewer
+    participant CR as react-code-reviewer
+
+    loop Each Task
+        P->>I: Dispatch task + spec
+        I->>I: Read files + knowledge base
+        I->>I: Write test (TDD)
+        I->>I: Implement code
+        I->>I: Verify tests pass
+        I->>I: Commit
+        I-->>P: Report (files, tests, commit)
+
+        P->>SR: Review spec compliance
+        SR-->>P: PASS or FAIL (with gaps)
+
+        alt FAIL
+            P->>I: Return for fixes
+            I-->>P: Fixed + new commit
+        end
+
+        P->>CR: Review code quality
+        CR-->>P: PASS / COMMENT / CHANGE_REQUIRED
+
+        alt CHANGE_REQUIRED
+            P->>I: Return for fixes
+            I-->>P: Fixed + new commit
+        end
+    end
+
+    P->>P: All tasks complete
+    Note over P: Trigger finish-branch

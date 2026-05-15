@@ -1,0 +1,21 @@
+# Cloned repo git directories (keep knowledge files)
+knowledge/repos/*/*/.git/
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Editor
+.vscode/
+.idea/
+
+# Node
+node_modules/
+
+# Script output
+scripts/*.log
+
+# Temporary
+*.tmp
+*.swp
+*~

@@ -1,0 +1,63 @@
+graph LR
+    bootstrap --> brainstorming
+    bootstrap --> react-tool
+    bootstrap --> train-repo
+    bootstrap --> server-setup
+
+    brainstorming --> writing-plans
+
+    writing-plans --> git-worktrees
+    writing-plans --> subagent-dev
+
+    subagent-dev --> tdd
+    subagent-dev --> code-review
+    subagent-dev --> finish-branch
+
+    finish-branch --> frontend-deploy
+    finish-branch --> server-setup
+
+    server-setup --> docker-setup
+    server-setup --> frontend-deploy
+    server-setup --> ci-cd
+
+    react-tool --> component-design
+    react-tool --> styling-system
+    react-tool --> api-client
+
+    backend-api --> database
+    backend-api --> auth
+    backend-api --> server-setup
+
+    train-repo --> react-tool
+
+    subgraph "Process (8)"
+        bootstrap
+        brainstorming
+        git-worktrees
+        writing-plans
+        subagent-dev
+        tdd
+        code-review
+        finish-branch
+    end
+
+    subgraph "React (4)"
+        react-tool
+        train-repo
+        component-design
+        styling-system
+    end
+
+    subgraph "Deploy (4)"
+        server-setup
+        frontend-deploy
+        docker-setup
+        ci-cd
+    end
+
+    subgraph "Backend (4)"
+        backend-api
+        database
+        auth
+        api-client
+    end

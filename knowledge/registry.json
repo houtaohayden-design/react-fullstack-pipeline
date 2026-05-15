@@ -1,0 +1,269 @@
+{
+  "version": "2.0",
+  "categories": {
+    "ui-libraries": {
+      "label": "UI Component Libraries",
+      "description": "Styled visual React component libraries"
+    },
+    "headless": {
+      "label": "Headless/Unstyled Utilities",
+      "description": "Behavior and logic without imposing visual styles"
+    },
+    "data-fetching": {
+      "label": "Data Fetching & Caching",
+      "description": "Server state management, API integration"
+    },
+    "hooks-utilities": {
+      "label": "Hooks & General Utilities",
+      "description": "Collection of React hooks for common use cases"
+    },
+    "animation": {
+      "label": "Animation & Motion",
+      "description": "Declarative and imperative animation libraries"
+    },
+    "routing": {
+      "label": "Routing & Navigation",
+      "description": "URL routing, navigation guards, deep linking"
+    },
+    "state-management": {
+      "label": "State Management",
+      "description": "Global and local state containers"
+    },
+    "charts": {
+      "label": "Charts & Data Visualization",
+      "description": "Chart and graph rendering libraries"
+    },
+    "guides": {
+      "label": "Guides & References",
+      "description": "Curated references, not installable libraries"
+    },
+    "backend": {
+      "label": "Backend Frameworks",
+      "description": "Server-side frameworks for React frontend backends"
+    },
+    "database": {
+      "label": "Database & ORM",
+      "description": "Database clients, ORMs, migration tools"
+    },
+    "deployment": {
+      "label": "Deployment & Infrastructure",
+      "description": "CI/CD, containerization, hosting configurations"
+    },
+    "auth": {
+      "label": "Authentication & Authorization",
+      "description": "Auth providers, JWT handling, session management"
+    }
+  },
+  "builtin": [
+    {
+      "slug": "animal-island-ui",
+      "name": "animal-island-ui",
+      "source": "https://github.com/guokaigdg/animal-island-ui",
+      "type": "component-library",
+      "category": "ui-libraries",
+      "platform": "web",
+      "style": "动物森友会风格",
+      "components": 17,
+      "skill": "animal-island-ui-style",
+      "trained": "2026-05-16"
+    },
+    {
+      "slug": "react-bits",
+      "name": "react-bits",
+      "source": "https://reactbits.dev",
+      "type": "animation-library",
+      "category": "animation",
+      "platform": "web",
+      "style": "通用现代风格",
+      "components": 110,
+      "skill": "react-bits",
+      "trained": "2026-05-16"
+    }
+  ],
+  "trained": [
+    {
+      "slug": "shineout",
+      "name": "shineout",
+      "source": "https://github.com/sheinsight/shineout",
+      "type": "component-library",
+      "category": "ui-libraries",
+      "platform": "web",
+      "style": "企业级通用风格，支持多主题切换",
+      "components": 41,
+      "themes": ["default", "shineout", "antd", "antd2", "bootstrap", "cssvar", "base"],
+      "highlights": ["Table", "Form", "Tree", "TreeSelect", "Transfer", "DatePicker", "Upload"],
+      "compatibility": { "tailwind": "partial", "react-bits": "yes", "react-version": ">=17" },
+      "trained": "2026-05-16"
+    },
+    {
+      "slug": "beeshell",
+      "name": "beeshell",
+      "source": "https://github.com/Meituan-Dianping/beeshell",
+      "type": "component-library",
+      "category": "ui-libraries",
+      "platform": "react-native",
+      "style": "企业级移动端风格",
+      "components": 30,
+      "highlights": ["Scrollpicker", "Calendar", "Actionsheet", "NavigationBar", "Modal family (6 types)"],
+      "compatibility": { "tailwind": "no", "react-bits": "no", "react-version": ">=16.8" },
+      "trained": "2026-05-16"
+    },
+    {
+      "slug": "datav",
+      "name": "@jiaminghi/data-view",
+      "source": "https://github.com/DataV-Team/DataV",
+      "type": "component-library",
+      "category": "ui-libraries",
+      "platform": "vue",
+      "style": "大屏数据可视化风格",
+      "components": 38,
+      "highlights": ["13种SVG边框", "12种SVG装饰", "飞线图", "数字翻牌器", "轮播表", "水位图"],
+      "reactVersion": "https://github.com/DataV-Team/DataV-React",
+      "compatibility": { "tailwind": "no", "react-bits": "no", "react-version": "N/A (Vue)" },
+      "trained": "2026-05-16"
+    },
+    {
+      "slug": "datav-react",
+      "name": "@jiaminghi/data-view-react",
+      "source": "https://github.com/DataV-Team/DataV-React",
+      "type": "component-library",
+      "category": "ui-libraries",
+      "platform": "web",
+      "style": "大屏数据可视化风格",
+      "components": 38,
+      "highlights": ["13种SVG边框", "12种SVG装饰", "飞线图", "数字翻牌器", "轮播表", "水位图", "useAutoResize"],
+      "compatibility": { "tailwind": "no", "react-bits": "yes", "react-version": ">=17" },
+      "trained": "2026-05-16"
+    },
+    {
+      "slug": "rn-guide",
+      "name": "react-native-guide",
+      "source": "https://github.com/reactnativecn/react-native-guide",
+      "type": "reference-guide",
+      "category": "guides",
+      "platform": "react-native",
+      "style": "N/A — 资源索引",
+      "components": 0,
+      "highlights": ["50+ 开源APP源码", "RN组件库索引", "教程合集", "工具推荐"],
+      "compatibility": { "tailwind": "N/A", "react-bits": "N/A", "react-version": "N/A" },
+      "trained": "2026-05-16"
+    },
+    {
+      "slug": "react-hook-form",
+      "name": "react-hook-form",
+      "source": "https://github.com/react-hook-form/react-hook-form",
+      "type": "utility",
+      "category": "headless",
+      "platform": "web",
+      "style": "Headless 表单库，无 UI 侵入",
+      "components": 1,
+      "highlights": ["useForm", "Controller", "useFieldArray", "useWatch", "Zod/Yup 集成", "性能优化"],
+      "compatibility": { "tailwind": "yes", "react-bits": "yes", "react-version": ">=16.8" },
+      "trained": "2026-05-16"
+    },
+    {
+      "slug": "zustand",
+      "name": "zustand",
+      "source": "https://github.com/pmndrs/zustand",
+      "type": "utility",
+      "category": "headless",
+      "platform": "web",
+      "style": "极简状态管理，无 Provider 包裹",
+      "components": 1,
+      "highlights": ["create/store", "useShallow", "persist middleware", "devtools", "subscribe", "async actions"],
+      "compatibility": { "tailwind": "yes", "react-bits": "yes", "react-version": ">=16.8" },
+      "trained": "2026-05-16"
+    },
+    {
+      "slug": "ahooks",
+      "name": "ahooks",
+      "source": "https://github.com/alibaba/hooks",
+      "type": "utility",
+      "category": "hooks-utilities",
+      "platform": "web",
+      "style": "阿里集团 Hooks 最佳实践集合",
+      "components": 85,
+      "highlights": ["useRequest", "usePagination", "useInfiniteScroll", "useDebounceFn", "useLockFn", "useBoolean"],
+      "compatibility": { "tailwind": "yes", "react-bits": "yes", "react-version": ">=16.8" },
+      "trained": "2026-05-16"
+    },
+    {
+      "slug": "tanstack-table",
+      "name": "@tanstack/react-table",
+      "source": "https://github.com/TanStack/table",
+      "type": "component-library",
+      "category": "headless",
+      "platform": "web",
+      "style": "Headless 表格，完全控制 UI 渲染",
+      "components": 1,
+      "highlights": ["排序", "过滤", "分页", "分组", "展开行", "行选择", "列固定/缩放", "服务端模式", "8 种 Row Model"],
+      "compatibility": { "tailwind": "yes", "react-bits": "yes", "react-version": ">=16.8" },
+      "trained": "2026-05-16"
+    },
+    {
+      "slug": "dnd-kit",
+      "name": "@dnd-kit/core",
+      "source": "https://github.com/clauderic/dnd-kit",
+      "type": "utility",
+      "category": "headless",
+      "platform": "web",
+      "style": "Headless 拖拽，可访问性优先",
+      "components": 1,
+      "highlights": ["useDraggable", "useDroppable", "useSortable", "SortableContext", "DragOverlay", "碰撞检测算法"],
+      "compatibility": { "tailwind": "yes", "react-bits": "yes", "react-version": ">=16.8" },
+      "trained": "2026-05-16"
+    },
+    {
+      "slug": "tanstack-query",
+      "name": "@tanstack/react-query",
+      "source": "https://github.com/TanStack/query",
+      "type": "utility",
+      "category": "data-fetching",
+      "platform": "web",
+      "style": "Headless 数据获取，缓存优先",
+      "components": 1,
+      "highlights": ["useQuery", "useMutation", "useInfiniteQuery", "useSuspenseQuery", "QueryClient", "乐观更新", "Devtools", "SSR"],
+      "compatibility": { "tailwind": "yes", "react-bits": "yes", "react-version": ">=18" },
+      "trained": "2026-05-16"
+    },
+    {
+      "slug": "react-router",
+      "name": "react-router",
+      "source": "https://github.com/remix-run/react-router",
+      "type": "utility",
+      "category": "routing",
+      "platform": "web",
+      "style": "标准 React 路由，Data Router 模式",
+      "components": 6,
+      "highlights": ["createBrowserRouter", "RouterProvider", "loader/action", "Link/NavLink", "Outlet", "useFetcher", "Form", "ErrorBoundary"],
+      "compatibility": { "tailwind": "yes", "react-bits": "yes", "react-version": ">=18" },
+      "trained": "2026-05-16"
+    },
+    {
+      "slug": "framer-motion",
+      "name": "framer-motion",
+      "source": "https://github.com/framer/motion",
+      "type": "animation-library",
+      "category": "animation",
+      "platform": "web",
+      "style": "声明式动画，Spring 物理引擎，完整手势",
+      "components": 1,
+      "highlights": ["motion.div", "AnimatePresence", "Variants", "layout动画", "useScroll/useTransform", "Reorder", "drag"],
+      "compatibility": { "tailwind": "yes", "react-bits": "complementary", "react-version": ">=18" },
+      "trained": "2026-05-16"
+    },
+    {
+      "slug": "swr",
+      "name": "swr",
+      "source": "https://github.com/vercel/swr",
+      "type": "utility",
+      "category": "data-fetching",
+      "platform": "web",
+      "style": "极简数据获取，Stale-While-Revalidate",
+      "components": 1,
+      "highlights": ["useSWR", "useSWRInfinite", "useSWRMutation", "useSWRImmutable", "SWRConfig", "mutate", "preload"],
+      "compatibility": { "tailwind": "yes", "react-bits": "yes", "react-version": ">=16.11" },
+      "trained": "2026-05-16"
+    }
+  ]
+}

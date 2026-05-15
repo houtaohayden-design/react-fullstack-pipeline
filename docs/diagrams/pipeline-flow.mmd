@@ -1,0 +1,34 @@
+flowchart TD
+    START([User Request]) --> BOOTSTRAP{bootstrap<br/>Intent Detection}
+
+    BOOTSTRAP -->|"build/create React app"| BRAINSTORM[brainstorming<br/>Requirements & Design]
+    BOOTSTRAP -->|"write component/code"| REACT_TOOL[react-tool<br/>Knowledge Base Check]
+    BOOTSTRAP -->|"deploy/server"| SERVER[server-setup]
+    BOOTSTRAP -->|"GitHub URL"| TRAIN[train-repo]
+
+    BRAINSTORM -->|"design approved"| WORKTREE[git-worktrees<br/>Isolation]
+    WORKTREE --> PLAN[writing-plans<br/>Bite-sized Tasks]
+
+    PLAN --> SUBAGENT[subagent-dev<br/>Execute per Task]
+    SUBAGENT --> TDD{tdd<br/>Test First}
+    TDD -->|"test fails"| CODE[Write Code]
+    CODE -->|"test passes"| REVIEW{code-review<br/>Two-Stage}
+    REVIEW -->|"PASS"| COMMIT[Commit & Next Task]
+    REVIEW -->|"FAIL"| CODE
+
+    COMMIT -->|"all tasks done"| FINISH[finish-branch<br/>Merge/PR Options]
+
+    FINISH -->|"deploy"| DEPLOY[frontend-deploy<br/>Build & Deploy]
+    FINISH -->|"need backend"| BACKEND[backend-api<br/>Build API]
+
+    DEPLOY --> DOCKER{docker-setup?}
+    DOCKER -->|"yes"| DOCKER_BUILD[Docker Build]
+    DOCKER -->|"no"| CICD[ci-cd<br/>GitHub Actions]
+
+    BACKEND --> DB[database<br/>Schema & ORM]
+    DB --> AUTH[auth<br/>JWT/OAuth]
+    AUTH --> DEPLOY
+
+    TRAIN --> REGISTRY[Update registry.json]
+    REACT_TOOL --> KNOWLEDGE[(Knowledge Base<br/>14 repos / 12 categories)]
+    REGISTRY --> KNOWLEDGE
