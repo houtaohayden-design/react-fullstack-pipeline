@@ -264,6 +264,165 @@
       "highlights": ["useSWR", "useSWRInfinite", "useSWRMutation", "useSWRImmutable", "SWRConfig", "mutate", "preload"],
       "compatibility": { "tailwind": "yes", "react-bits": "yes", "react-version": ">=16.11" },
       "trained": "2026-05-16"
+    },
+    {
+      "slug": "downshift",
+      "name": "downshift",
+      "category": "headless",
+      "source": "https://github.com/downshift-js/downshift",
+      "type": "headless",
+      "style": "headless — getter props pattern, state reducer, full ARIA compliance",
+      "components": 4,
+      "compatibility": {
+        "tailwind": true,
+        "react-bits": true,
+        "react-version": "18"
+      },
+      "trained": "2026-05-16"
+    },
+    {
+      "slug": "radix-primitives",
+      "name": "@radix-ui/react-<component>",
+      "category": "headless",
+      "source": "https://github.com/radix-ui/primitives",
+      "type": "headless",
+      "style": "headless -- data-attribute selectors for styling, asChild prop, compound component pattern",
+      "components": 33,
+      "compatibility": {
+        "tailwind": true,
+        "react-bits": true,
+        "react-version": "18"
+      },
+      "trained": "2026-05-16"
+    },
+    {
+      "slug": "shadcn-ui",
+      "name": "shadcn-ui",
+      "category": "ui-libraries",
+      "source": "https://github.com/shadcn-ui/ui",
+      "type": "ui-kit",
+      "style": "Tailwind + CVA variants, copy-source model, built on Radix primitives",
+      "components": 56,
+      "highlights": ["Button", "Dialog", "Form", "Command", "Sidebar", "Chart", "DropdownMenu", "Sheet", "Drawer", "Table"],
+      "compatibility": {
+        "tailwind": true,
+        "react-bits": true,
+        "react-version": "18"
+      },
+      "trained": "2026-05-16"
+    },
+    {
+      "slug": "react-use",
+      "name": "react-use",
+      "category": "hooks-utilities",
+      "source": "https://github.com/streamich/react-use",
+      "type": "utility",
+      "style": "N/A — logic hooks only, no visual output",
+      "components": 113,
+      "highlights": ["useToggle", "useMouse", "useAsync/useAsyncFn", "useClickAway", "useDebounce", "useKey/useKeyPress", "useMeasure", "useWindowSize", "useList", "useLocalStorage", "useSpring", "useFullscreen"],
+      "compatibility": {
+        "tailwind": true,
+        "react-bits": true,
+        "react-version": ">=16.8"
+      },
+      "trained": "2026-05-16"
+    },
+    {
+      "slug": "jotai",
+      "name": "jotai",
+      "category": "state-management",
+      "source": "https://github.com/pmndrs/jotai",
+      "type": "state-management",
+      "style": "N/A — atomic state, no visual output",
+      "components": 28,
+      "highlights": ["atom", "useAtom", "useAtomValue", "useSetAtom", "atomWithStorage", "atomWithReset", "selectAtom", "splitAtom", "unwrap", "atomFamily", "atomWithDefault"],
+      "compatibility": { "tailwind": true, "react-bits": true, "react-version": "17" },
+      "trained": "2026-05-16"
+    },
+    {
+      "slug": "redux-toolkit",
+      "name": "@reduxjs/toolkit",
+      "category": "state-management",
+      "source": "https://github.com/reduxjs/redux-toolkit",
+      "type": "state-management",
+      "style": "N/A — Redux state management, no visual output",
+      "components": 5,
+      "highlights": ["configureStore", "createSlice", "createAsyncThunk", "createEntityAdapter", "createApi", "fetchBaseQuery", "RTK Query hooks"],
+      "compatibility": { "tailwind": true, "react-bits": true, "react-version": "17" },
+      "trained": "2026-05-16"
+    },
+    {
+      "slug": "react-aria",
+      "name": "react-aria-components",
+      "category": "headless",
+      "source": "https://github.com/adobe/react-spectrum",
+      "type": "headless",
+      "style": "headless -- render props + data-attributes, built-in WAI-ARIA accessibility, useRenderProps pattern",
+      "components": 50,
+      "compatibility": {
+        "tailwind": true,
+        "react-bits": true,
+        "react-version": "18"
+      },
+      "trained": "2026-05-16"
+    },
+    {
+      "slug": "usehooks-ts",
+      "name": "usehooks-ts",
+      "category": "hooks-utilities",
+      "source": "https://github.com/juliencrn/usehooks-ts",
+      "type": "utility",
+      "style": "N/A — logic hooks only",
+      "components": 33,
+      "compatibility": { "tailwind": true, "react-bits": true, "react-version": "18" },
+      "trained": "2026-05-16"
+    },
+    {
+      "slug": "recharts",
+      "name": "recharts",
+      "category": "charts",
+      "source": "https://github.com/recharts/recharts",
+      "type": "chart-library",
+      "style": "SVG-based, customizable via props, ResponsiveContainer for responsiveness",
+      "components": 12,
+      "compatibility": { "tailwind": true, "react-bits": true, "react-version": "18" },
+      "trained": "2026-05-16"
+    },
+    {
+      "slug": "mantine",
+      "name": "@mantine/core",
+      "category": "ui-libraries",
+      "source": "https://github.com/mantinedev/mantine",
+      "type": "ui-kit",
+      "style": "CSS Modules + PostCSS, theme object via MantineProvider, 96 core components + 70+ hooks + 14 additional packages (dates, charts, form, modals, etc.)",
+      "components": 96,
+      "highlights": ["Button", "Modal", "Table", "Tabs", "AppShell", "Select", "DatePicker", "Accordion", "Menu", "useDisclosure", "useForm"],
+      "compatibility": { "tailwind": false, "react-bits": true, "react-version": "18" },
+      "trained": "2026-05-16"
+    },
+    {
+      "slug": "nextui",
+      "name": "@nextui-org/react",
+      "category": "ui-libraries",
+      "source": "https://github.com/nextui-org/nextui",
+      "type": "ui-kit",
+      "style": "Tailwind CSS v4 + React Aria Components, compound component pattern, BEM naming, built-in dark mode, variant system (solid/bordered/light/flat/faded/shadow/ghost)",
+      "components": 75,
+      "highlights": ["Button", "Modal", "Menu", "Tabs", "Table", "DatePicker", "AlertDialog", "TextField", "Select", "Calendar"],
+      "compatibility": { "tailwind": true, "react-bits": true, "react-version": "19" },
+      "trained": "2026-05-16"
+    },
+    {
+      "slug": "sonner",
+      "name": "sonner",
+      "category": "ui-libraries",
+      "source": "https://github.com/emilkowalski/sonner",
+      "type": "ui-kit",
+      "style": "Opinionated toast notifications, CSS-based with data-attributes, promise support, swipe-to-dismiss, stacking effect, multiple toasters",
+      "components": 1,
+      "highlights": ["toast()", "toast.promise()", "Toaster", "richColors", "unstyled mode", "swipe to dismiss"],
+      "compatibility": { "tailwind": true, "react-bits": true, "react-version": "18" },
+      "trained": "2026-05-16"
     }
   ]
 }
