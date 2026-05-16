@@ -323,6 +323,3 @@ git clone https://github.com/houtaohayden-design/react-fullstack-pipeline.git \
 
 ---
 
-## License
-
-MIT © 2026
