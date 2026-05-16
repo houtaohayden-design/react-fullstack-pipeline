@@ -13,6 +13,7 @@ Before writing any React UI code, check the knowledge base for existing componen
 
 ## Knowledge Sources (check in this order)
 
+0. **Design system spec** — if user selected a premium UI style during brainstorming → `knowledge/design-systems/` (动森增强 / shadcn专业 / 玻璃拟态)
 1. **react-bits** — animation/motion layer: text animations, backgrounds, scroll effects, interactive components
 2. **animal-island-ui** — 动森风格 base components: Button, Card, Modal, Input, etc. (ONLY when user asks for 动物森友会/animal-island/可爱圆润风格)
 3. **Trained repos** — user-provided GitHub component libraries (`knowledge/registry.json` → `trained` array)
@@ -21,6 +22,9 @@ Before writing any React UI code, check the knowledge base for existing componen
 
 ```
 User asks for React UI
+  → Has a premium design system been selected?
+    → YES: Follow knowledge/design-systems/<slug>.md — use prescribed components, colors, animations
+    → NO: Continue to style detection
   → Is it 动森/Animal Island style?
     → YES: Start with animal-island-ui components as base
     → NO: Start with standard React/HTML
@@ -52,6 +56,10 @@ User asks for React UI
 - Interactive: Button, Input, Switch, Modal, Select, Checkbox, Tabs, Collapse
 - Display: Card (13 colors), Icon (10), Time, Phone, Footer, Divider
 - Effect: Cursor, Typewriter, CodeBlock
+
+### Design systems & artistic styles
+- `knowledge/design-systems/` — 3 premium UI specs, 12 font pairings, 8 layout systems, 8 artistic styles
+- Each spec includes component mapping, color palette, animation patterns, and ready-to-use code
 
 ### Trained repos
 Check `D:\Claude Code\react-frontend-tool\knowledge\registry.json` for full list.

@@ -11,6 +11,7 @@ Never write custom code when a trained repository already provides the solution.
 ## Knowledge Check Order
 
 ```
+0. Design system spec (if user selected UI style → knowledge/design-systems/)
 1. Trained repos (user's preferred libraries)
 2. react-bits (animation/motion/visual effects)
 3. animal-island-ui (ONLY when 动森风格 explicitly requested)
@@ -39,11 +40,56 @@ Never write custom code when a trained repository already provides the solution.
 
 | Priority | Source | When |
 |----------|--------|------|
-| P0 | Trained repos | Any standard UI pattern |
-| P1 | react-bits | Animation, motion, text effects, backgrounds |
-| P2 | animal-island-ui | ONLY when 动森/Animal Island style explicitly requested |
-| P3 | Custom CSS/Tailwind | Layout, spacing, colors not covered above |
-| P4 | Custom components | Only when nothing in knowledge base fits |
+| P0 | Design system (if chosen) | Follow the selected premium design system spec |
+| P1 | Trained repos | Any standard UI pattern |
+| P2 | react-bits | Animation, motion, text effects, backgrounds |
+| P3 | animal-island-ui | ONLY when 动森/Animal Island style explicitly requested |
+| P4 | Custom CSS/Tailwind | Layout, spacing, colors not covered above |
+| P5 | Custom components | Only when nothing in knowledge base fits |
+
+## Premium Design Systems
+
+When the user has selected a UI style during brainstorming, follow the corresponding design system spec. Each spec defines the full stack — base UI library, animation layer, visual FX, color palette, typography, and code patterns.
+
+**Location:** `knowledge/design-systems/`
+
+| # | Design System | Base UI | Animation | Visual FX | Best For |
+|---|--------------|---------|-----------|-----------|----------|
+| A | `enhanced-animal-island.md` | animal-island-ui | framer-motion | react-bits (BlurText, TiltedCard, Aurora, BlobCursor) | Recipe/food, personal blogs, lifestyle |
+| B | `shadcn-professional.md` | shadcn/ui (Radix) | framer-motion | react-bits (DecryptedText, SpotlightCard, Dock) | SaaS, dashboards, enterprise |
+| C | `glassmorphism-hybrid.md` | shadcn or animal-island | framer-motion | react-bits (Hyperspeed, Particles, FluidGlass, ReflectiveCard, SplashCursor) | Creative portfolios, luxury brands, tech |
+
+**Cross-cutting references:**
+- `typography-layout.md` — 12 font pairings, 8 layout systems, fluid type scales
+- `artistic-styles.md` + `artistic-styles-2.md` — 16 premium visual directions
+- `ui-patterns.md` — 60+ UI interaction patterns
+- `text-design.md` — Kinetic typography, gradient text, masking, 3D, glitch, typewriter
+- `color-theory.md` — Color spaces, harmony rules, palette architecture, dark mode, WCAG contrast
+- `motion-design.md` — Animation principles, duration/easing tokens, spring physics, scroll-driven patterns
+- `landing-patterns.md` — Hero patterns, feature sections, pricing, CTA, footer, how-it-works
+- `form-design.md` — Input anatomy, style variants, validation, multi-step, auto-save
+- `background-patterns.md` — CSS patterns, noise, mesh gradients, blobs, animated backgrounds
+- `form-design.md` — Input anatomy, style variants, validation, multi-step, auto-save
+- `data-viz-design.md` — Chart styling, dashboard layouts, KPI cards, dark mode charts
+- `responsive-patterns.md` — Breakpoints, container queries, fluid type, mobile-first, touch/mouse
+- `navigation-design.md` — Top nav, sidebar, mega menu, ⌘K palette, breadcrumbs, tabs, dock
+- `empty-states-design.md` — Loading skeleton, empty/error/offline states, permission gates
+- `iconography-design.md` — Icon sizing, animated icons, favicon, accessibility, bundling
+- `search-experience.md` — Search bars, autocomplete, faceted search, filters
+- `modal-dialog-design.md` — Modals, dialogs, drawers, sheets, focus traps
+- `button-design.md` — Variants, sizes, states, FAB, split button, button group
+- `feedback-patterns.md` — Toast, progress, tooltip, popover, copy feedback
+- `onboarding-patterns.md` — Welcome screens, tours, coach marks, checklists
+
+### How to Apply a Design System
+
+1. Read the full spec at `knowledge/design-systems/<slug>.md`
+2. Install the base UI library and configure theme
+3. Use the Component Mapping table — every UI element has a prescribed component
+4. Apply animation patterns from the spec (page transitions, card hover, scroll reveals)
+5. Follow the color palette and typography exactly
+6. Optionally layer an artistic style from `knowledge/design-systems/artistic-styles.md` (8 premium directions)
+7. Respect the bundle budget and performance rules
 
 ## Workflow
 

@@ -60,6 +60,36 @@ Complete React development lifecycle: brainstorming → worktrees → plan → s
 - Builtin: animal-island-ui (17 components), react-bits (110+ animations)
 - Trained: 26 repos across 13 categories (shineout, beeshell, datav, shadcn-ui, radix-primitives, react-hook-form, zustand, ahooks, tanstack-table, dnd-kit, tanstack-query, react-router, framer-motion, swr, downshift, react-aria, jotai, redux-toolkit, mantine, nextui, sonner, recharts, react-use, usehooks-ts, rn-guide, datav-react)
 
+## Premium Design Systems (brainstorming Round 1, question 5)
+User selects one of three premium UI styles during initial inquiry. Full specs at `knowledge/design-systems/`:
+
+| # | Design System | Base UI | Animation | Visual FX | Best For |
+|---|--------------|---------|-----------|-----------|----------|
+| A | 动森温馨增强 | animal-island-ui | framer-motion | react-bits (BlurText, TiltedCard, Aurora, BlobCursor) | Recipe/food, personal blogs, lifestyle |
+| B | 专业现代 | shadcn/ui (Radix) | framer-motion | react-bits (DecryptedText, SpotlightCard, Dock) | SaaS, dashboards, enterprise |
+| C | 玻璃拟态混合 | shadcn or animal-island | framer-motion | react-bits (Hyperspeed, Particles, FluidGlass, SplashCursor) | Creative portfolios, luxury brands |
+
+Cross-cutting layers (apply to any design system):
+- `knowledge/design-systems/typography-layout.md` — 12 font pairings, 8 layout systems (Swiss Grid, Editorial Magazine, Minimal Luxury, Bento Grid, Staggered Asymmetric, Masonry Cascade, Full-Screen Immersive, Timeline Narrative), fluid type scales, whitespace architecture, micro-typography patterns
+- `knowledge/design-systems/artistic-styles.md` + `artistic-styles-2.md` — 16 premium visual directions: Neo-Brutalism, Wabi-Sabi, Neumorphism, Synthwave, Art Deco, Claymorphism, Dark Academia, Liquid Glass, Scandinavian, Cyberpunk, Vaporwave, Memphis, Bauhaus, Paper Craft, Pop Art, Steampunk. Each with color palette, CSS, TSX, typography pairing
+- `knowledge/design-systems/ui-patterns.md` — 60+ premium UI patterns: 6 card designs, 5 navigation, 5 loading states, empty/error states, search/filter, modal/dialog, data display, 6 page transitions, 8 micro-interactions
+- `knowledge/design-systems/text-design.md` — Kinetic typography, gradient text (4 variants), text masking (image/video/reveal), 3D CSS text, typewriter/scramble, glitch/distort, split/reveal, number animations, highlights, CSS one-liners
+- `knowledge/design-systems/color-theory.md` — Color spaces (HEX/RGB/HSL/OKLCH), 6 harmony rules, 3-layer palette architecture, dark mode architecture, WCAG contrast, cultural meanings, gradient pairing, 5 quick palette templates
+- `knowledge/design-systems/motion-design.md` — Disney's 12 principles for UI, duration tokens (100ms–1200ms), easing curve catalog (5 custom beziers), spring physics (6 presets), scroll-driven animation, gesture design, reduced motion, animation quality tiers
+- `knowledge/design-systems/landing-patterns.md` — 8 hero patterns (Centered Statement, Split, Full-Bleed, Search-First), feature sections, stats/social proof, pricing, CTA banner, FAQ accordion, premium footer, how-it-works steps
+- `knowledge/design-systems/form-design.md` — Input anatomy, 4 style variants (outlined/filled/underlined/pill), 5 validation states, form layouts, multi-step wizard, password strength meter, OTP input, search autocomplete, auto-save, submit states
+- `knowledge/design-systems/background-patterns.md` — 7 CSS-only patterns (dots/grid/stripes/chevron/crosshatch/zigzag), noise/grain textures, mesh gradients, geometric backgrounds, floating blobs, hero backgrounds, animated backgrounds
+- `knowledge/design-systems/data-viz-design.md` — 12-color categorical palette, sequential/divergent schemes, chart anatomy (7 elements), Recharts theme, premium tooltip, chart type selection, 4 dashboard layouts, KPI cards, sparklines, zoomable timeline, dark mode charts, data tables, accessibility
+- `knowledge/design-systems/responsive-patterns.md` — Content-based breakpoints, container queries, fluid typography (clamp-based), fluid spacing, mobile-first patterns, adaptive navigation, responsive images, touch vs mouse, safe areas, print styles, performance patterns
+- `knowledge/design-systems/navigation-design.md` — 7 navigation types (top nav, sidebar, mega menu, bottom tab, command palette, floating dock, breadcrumbs), NavLink with active indicator, collapsible sidebar, ⌘K palette, adaptive mobile patterns
+- `knowledge/design-systems/empty-states-design.md` — State matrix (loading/empty/ideal/error/partial/overflow), skeleton components, 3 empty state types, error severity levels, offline banner, rate limit handling, progressive loading, permission gates, 12-state checklist
+- `knowledge/design-systems/iconography-design.md` — Icon sizing system (12-48px), library comparison (Lucide/Phosphor/Tabler/Radix/Heroicons), animated icons (morphing, hamburger, check, spinner), favicon system, accessibility rules, icon colors, spacing, bundling strategy
+- `knowledge/design-systems/search-experience.md` — Search bar variants (inline/fullscreen/hero), autocomplete, faceted search, filter chips, sort controls, result cards, debounced search, UX checklist
+- `knowledge/design-systems/modal-dialog-design.md` — Modal types (dialog/drawer/sheet/popover), size presets, stacked modals, focus traps, animation variants (scale/slide/flip), alert dialogs, bottom sheets, anti-patterns
+- `knowledge/design-systems/button-design.md` — 8 button variants (primary/secondary/ghost/outline/danger/success/glass), 5 sizes, loading state, icon button, button group, split button, FAB, destructive confirmation, success animation
+- `knowledge/design-systems/feedback-patterns.md` — Toast system with progress bar, 5 toast variants, linear/circular/step progress, tooltip, popover, copy feedback, anti-patterns
+- `knowledge/design-systems/onboarding-patterns.md` — 8 onboarding patterns (welcome, tour, coach marks, walkthrough, setup, prompts, checklist, video), preference picker, spotlight overlay, activation metrics, anti-patterns
+
 ## Known Gotchas (from production pipeline verification)
 
 ### animal-island-ui
