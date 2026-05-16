@@ -8,7 +8,6 @@
 [![Agents](https://img.shields.io/badge/agents-6-orange)]()
 [![Trained Libs](https://img.shields.io/badge/trained--libs-26-purple)]()
 [![Design Specs](https://img.shields.io/badge/design--specs-23-pink)]()
-[![License](https://img.shields.io/badge/license-MIT-lightgrey)]()
 
 ---
 
