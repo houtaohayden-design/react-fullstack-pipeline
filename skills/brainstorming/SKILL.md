@@ -6,7 +6,7 @@ description: Use when building or creating a React application, component, or fe
 # Brainstorming for React Projects
 
 ## Core Principle
-Understand WHAT the user wants before thinking about HOW. Ask clarifying questions one at a time, propose 2-3 technical approaches, write a design document.
+Understand WHAT the user wants before thinking about HOW. Batch independent clarifying questions, propose 2-3 technical approaches, write a design document.
 
 ## When to Use
 - "build a React app/dashboard/website"
@@ -16,12 +16,16 @@ Understand WHAT the user wants before thinking about HOW. Ask clarifying questio
 
 ## Workflow
 
-### Step 1: Understand Requirements (2-4 questions)
-Ask one question at a time. Never rapid-fire:
-1. What does the app/component DO? (core functionality)
-2. Who uses it? (user personas)
-3. What constraints exist? (bundle size, accessibility, browser support, mobile?)
-4. Any design reference? (Figma, mockup, existing app)
+### Step 1: Understand Requirements (1-2 rounds)
+
+**Round 1 — Batch independent questions.** All 4 discovery areas are independent (no answer depends on a prior answer). Present them all in a single numbered message:
+
+1. **Core Functionality** — What does the app/component DO? What actions can users take? Primary workflow?
+2. **User Personas** — Who uses it? (role, skill level, device: desktop/mobile/both)
+3. **Constraints** — Bundle size target? Accessibility (WCAG level)? Browser support? Mobile responsive? Performance goals?
+4. **Design Reference** — Figma link, mockup, existing app to emulate, or "build from scratch"?
+
+**Round 2 (only if needed)** — If any answer reveals ambiguity needing clarification, batch ALL remaining follow-ups into one message. Never ask one at a time.
 
 ### Step 2: Propose Approach (2-3 options)
 Present approaches as recommendations, not decisions:
@@ -69,4 +73,4 @@ Save to `knowledge/specs/<project-name>.md`:
 Present the design doc summary. User must approve before moving to `react-pipeline:writing-plans`.
 
 ## Next Step
-After approval: **REQUIRED SUB-SKILL:** Use `react-pipeline:writing-plans` to create implementation plan.
+After approval: Set up isolation with `react-pipeline:git-worktrees`, then **REQUIRED SUB-SKILL:** Use `react-pipeline:writing-plans` to create implementation plan.

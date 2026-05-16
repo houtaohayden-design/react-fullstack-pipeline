@@ -50,7 +50,7 @@ digraph routing {
 
 ## All Skills Reference
 
-### Process Pipeline (8 skills)
+### Process Pipeline (9 skills)
 
 | Skill | Trigger | What It Does |
 |-------|---------|--------------|
@@ -61,6 +61,7 @@ digraph routing {
 | `react-pipeline:tdd` | Before writing implementation code | Red-green-refactor cycle |
 | `react-pipeline:code-review` | Between tasks, before merge | Two-stage review (spec compliance + code quality) |
 | `react-pipeline:finish-branch` | All tasks complete | Verify, present merge/PR options |
+| `react-pipeline:security-audit` | Security review, audit, before deploy | Run security-auditor agent to check auth, input validation, data exposure |
 | `react-pipeline:bootstrap` | Every session start | Intent detection, routing (this skill) |
 
 ### React Domain (4 skills)
@@ -107,3 +108,5 @@ digraph routing {
 | "I know this library already" | Knowledge base has structured API docs. Check first. |
 | "Let me write it from scratch" | Trained repos exist. Check react-tool first. |
 | "I'll figure out deployment later" | server-setup skill exists. Use it now. |
+| "This is frontend only, no security needed" | Run security-auditor agent before deploy. Auth, input validation, data exposure matter. |
+| "Backend testing is different from frontend" | TDD skill now includes backend API testing patterns (Hono + SQL.js). |

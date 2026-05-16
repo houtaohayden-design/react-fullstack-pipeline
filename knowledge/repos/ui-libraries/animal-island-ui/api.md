@@ -10,9 +10,13 @@ npm install animal-island-ui
 
 ```tsx
 // app entry (main.tsx / _app.tsx / App.tsx)
-import 'animal-island-ui/style'; // MUST import BEFORE any component usage
+import 'animal-island-ui/style'; // MUST be JS import (NOT CSS @import) BEFORE any component usage
 // Fonts (Nunito / Noto Sans SC / Zen Maru Gothic) are auto-bundled via @fontsource
 ```
+
+**CRITICAL:** The style import MUST be a JavaScript `import`, NOT a CSS `@import`. Vite resolves package.json `exports` differently for CSS — `@import 'animal-island-ui/style'` in a `.css` file will silently fail. Always put `import 'animal-island-ui/style'` in your JS/TS entry file.
+
+**Deep path imports are blocked** by the package.json `exports` field. Only import from the package root (`animal-island-ui`) or `animal-island-ui/style`. Do NOT import from paths like `animal-island-ui/dist/types/...`.
 
 Peer requirements: `react >= 17.0.0`, `react-dom >= 17.0.0`
 
@@ -542,7 +546,7 @@ import type {
 
 ## Hard Rules
 
-1. **Import style once**: `import 'animal-island-ui/style';` at app entry. Do not re-import per component.
+1. **Import style once via JS**: `import 'animal-island-ui/style';` at app entry (JS import, NOT CSS @import). Do not re-import per component.
 2. **Do NOT invent props.** Every prop used must appear verbatim above. No `variant`, `shape`, `rounded`, `theme`, `color="primary"` etc. unless listed.
 3. **`Modal.open` is required**; always provide a matching `onClose`.
 4. **`Collapse.question` and `Collapse.answer` are required.**
@@ -555,4 +559,4 @@ import type {
 11. **CodeBlock** only highlights JSX/TS -- no `language` prop. Not intended for non-JS languages.
 12. **Never use `style={{ borderRadius: 0 }}`** or force sharp corners on interactive elements.
 13. **Never override the 3D bottom shadow** on Button/Input/Switch -- it is the core identity of the library.
-14. **Do NOT import from deep paths** -- only the package root and `animal-island-ui/style` are public.
+14. **Do NOT import from deep paths** -- only the package root and `animal-island-ui/style` are public. The package.json `exports` field blocks all other paths.

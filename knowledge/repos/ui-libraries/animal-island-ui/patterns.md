@@ -138,6 +138,76 @@ Critical design constraint:
 
 ---
 
+## Critical Gotchas (from real-world usage)
+
+### Vite CSS Import: Use JS Import, NOT CSS @import
+
+**Problem:** `@import 'animal-island-ui/style'` in a CSS file does NOT work with Vite. Vite's CSS resolver doesn't read package.json `exports` the same way its JS resolver does. The styles silently fail to load.
+
+**Fix:** Always import the style file via JavaScript, not CSS:
+
+```tsx
+// ✅ CORRECT — in main.tsx or App.tsx
+import 'animal-island-ui/style';
+
+// ❌ WRONG — in any .css file
+@import 'animal-island-ui/style';
+```
+
+This must be in the JS entry point (main.tsx), before any component usage.
+
+### package.json Exports Block Deep Imports
+
+**Problem:** animal-island-ui's package.json has an `exports` field that restricts which paths can be imported. Deep paths like `animal-island-ui/dist/types/components/Card/Card` are BLOCKED.
+
+**Fix:** Only import from the package root:
+
+```tsx
+// ✅ CORRECT
+import { Button, Card, Select, Tabs } from 'animal-island-ui';
+import type { CardColor, SelectOption, TabItem } from 'animal-island-ui';
+
+// ❌ WRONG — deep path imports fail
+import type { CardColor } from 'animal-island-ui/dist/types/components/Card/Card';
+```
+
+The only public entry points are: `.` (package root) and `./style`.
+
+### Component API: Select and Tabs
+
+**Select is controlled-only** — `options`, `value`, `onChange` are ALL required props. It uses an `options` array prop, NOT children:
+
+```tsx
+// ✅ CORRECT
+<Select value={val} onChange={setVal} options={[{ key: 'a', label: 'Option A' }]} />
+
+// ❌ WRONG — Select doesn't use children
+<Select value={val} onChange={setVal}>
+  <Select.Option value="a">Option A</Select.Option>
+</Select>
+```
+
+**Tabs uses `items` prop** — NOT compound pattern with Tab children:
+
+```tsx
+// ✅ CORRECT
+<Tabs items={[{ key: 'tab1', label: 'Tab 1', children: <p>Content</p> }]} />
+
+// ❌ WRONG — Tabs doesn't use compound children pattern
+<Tabs>
+  <Tabs.Tab key="tab1" label="Tab 1">Content</Tabs.Tab>
+</Tabs>
+```
+
+### Card Type vs Color
+
+`Card` has two separate visual props: `type` (visual style: 'default' | 'title' | 'dashed') and `color` (13 NookPhone app colors). They are independent:
+
+```tsx
+<Card type="dashed" color="app-teal">Dashed teal card</Card>
+<Card color="app-pink">Default style, pink color</Card>
+```
+
 ## Compatibility
 
 ### With Tailwind CSS

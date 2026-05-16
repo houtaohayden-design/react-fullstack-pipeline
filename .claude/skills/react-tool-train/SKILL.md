@@ -2,6 +2,8 @@
 name: react-tool-train
 description: Use when user provides a GitHub URL to a React component library, UI kit, or frontend tool and wants to train the knowledge base. Use when user says "train", "add to knowledge base", "learn this repo", or provides a GitHub link with intent to use it as a reference.
 ---
+> **Authoritative source:** `skills/train-repo/SKILL.md` (prefixed name: `react-pipeline:train-repo`)
+---
 
 # React Frontend Tool — Training
 

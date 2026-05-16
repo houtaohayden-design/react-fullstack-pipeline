@@ -1,6 +1,8 @@
 ---
 name: react-tool
-description: Use when building React UI components or pages, creating frontend interfaces, or writing any React code. Checks knowledge base (animal-island-ui, react-bits, trained repos) for applicable components before writing custom code. Use when user asks to build React UI, frontend, component, or page.
+description: Use when building React UI components or pages, creating frontend interfaces, or writing any React code. Checks knowledge base (26+ trained repos, animal-island-ui, react-bits) for applicable components before writing custom code. Use when user asks to build React UI, frontend, component, or page.
+---
+> **Authoritative source:** `skills/react-tool/SKILL.md` (prefixed name: `react-pipeline:react-tool`)
 ---
 
 # React Frontend Tool

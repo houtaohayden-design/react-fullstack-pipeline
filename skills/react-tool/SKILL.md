@@ -1,6 +1,6 @@
 ---
 name: react-pipeline:react-tool
-description: Use when writing React UI code — checks knowledge base (14+ trained libraries in 12 categories) before writing custom components.
+description: Use when writing React UI code — checks knowledge base (26+ trained libraries in 13 categories) before writing custom components.
 ---
 
 # React Tool — Code with Knowledge Base
@@ -25,12 +25,14 @@ Never write custom code when a trained repository already provides the solution.
 
 | Category | When to Check | Trained Repos |
 |----------|--------------|---------------|
-| `headless` | Forms, state, tables, drag/drop | react-hook-form, zustand, tanstack-table, dnd-kit |
+| `headless` | Forms, state, tables, drag/drop, accessibility | react-hook-form, zustand, tanstack-table, dnd-kit, downshift, radix-primitives, react-aria |
 | `data-fetching` | API calls, caching, mutations | tanstack-query, swr |
 | `animation` | Page transitions, gesture, scroll | framer-motion (react-bits for text/background effects) |
 | `routing` | URL routing, navigation | react-router |
-| `hooks-utilities` | General React hooks | ahooks (85+ hooks) |
-| `ui-libraries` | Styled components, enterprise UI | shineout, datav-react, beeshell (RN) |
+| `hooks-utilities` | General React hooks | ahooks (85+), react-use (113+), usehooks-ts (33) |
+| `ui-libraries` | Styled components | shineout, shadcn-ui, mantine, nextui, sonner, datav-react, beeshell (RN) |
+| `state-management` | Global/atomic state | jotai, redux-toolkit |
+| `charts` | Data visualization | recharts |
 | `guides` | Reference, ecosystem | rn-guide |
 
 ## Component Selection Priority

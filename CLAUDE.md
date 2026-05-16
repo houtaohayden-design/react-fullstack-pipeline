@@ -8,10 +8,10 @@ Complete React development lifecycle: brainstorming → worktrees → plan → s
 | Skill | When |
 |-------|------|
 | `react-pipeline:bootstrap` | 会话入口，自动路由 |
-| `react-pipeline:brainstorming` | 构建/创建 React 应用前 |
+| `react-pipeline:brainstorming` | 构建/创建 React 应用前 **(支持批量提问)** |
 | `react-pipeline:git-worktrees` | 开始功能开发前 |
-| `react-pipeline:writing-plans` | 头脑风暴通过后 |
-| `react-pipeline:subagent-dev` | 执行实施计划 |
+| `react-pipeline:writing-plans` | 头脑风暴通过后 **(支持 depends_on + parallel_group)** |
+| `react-pipeline:subagent-dev` | 执行实施计划 **(支持并行 Agent 调度)** |
 | `react-pipeline:tdd` | 编写实现代码前 |
 | `react-pipeline:code-review` | 任务间/合并前 |
 | `react-pipeline:finish-branch` | 所有任务完成时 |
@@ -41,18 +41,47 @@ Complete React development lifecycle: brainstorming → worktrees → plan → s
 | `react-pipeline:api-client` | 前端 API 集成 |
 
 ## Agents (6 types)
-- **react-implementer** — Execute single task from plan
+- **react-implementer** — Execute single task from plan (runs in parallel groups when tasks are independent)
 - **react-spec-reviewer** — Verify impl matches spec
 - **react-code-reviewer** — Code quality review
 - **react-trainer** — Train GitHub repos into knowledge base
 - **react-deployer** — Deploy and configure servers
 - **react-backend-engineer** — Build backend APIs
 
+### Parallel Execution
+- Brainstorming: batches all 4 discovery questions into 1 message (saves ~3 round-trips)
+- Subagent-dev: Mode A (parallel) when plan has `parallel_group` fields — dispatches N agents simultaneously
+- Subagent-dev: Mode B (sequential) when plan has no `parallel_group` — identical to original behavior
+- Expected speedup: ~53% faster execution (backend + frontend tasks run concurrently)
+
 ## Knowledge Base
-- `knowledge/registry.json` — Repository index (14 trained, 12 categories)
+- `knowledge/registry.json` — Repository index (26 trained, 13 categories)
 - `knowledge/repos/<category>/<slug>/` — Structured knowledge (api.md + patterns.md)
 - Builtin: animal-island-ui (17 components), react-bits (110+ animations)
-- Trained: shineout, beeshell, datav, datav-react, rn-guide, react-hook-form, zustand, ahooks, tanstack-table, dnd-kit, tanstack-query, react-router, framer-motion, swr
+- Trained: 26 repos across 13 categories (shineout, beeshell, datav, shadcn-ui, radix-primitives, react-hook-form, zustand, ahooks, tanstack-table, dnd-kit, tanstack-query, react-router, framer-motion, swr, downshift, react-aria, jotai, redux-toolkit, mantine, nextui, sonner, recharts, react-use, usehooks-ts, rn-guide, datav-react)
+
+## Known Gotchas (from production pipeline verification)
+
+### animal-island-ui
+1. **CSS import MUST be JS, not CSS @import**: Use `import 'animal-island-ui/style'` in main.tsx. `@import 'animal-island-ui/style'` in `.css` files silently fails with Vite.
+2. **No deep path imports**: package.json `exports` blocks all paths except root and `./style`. Import types from root: `import type { CardColor } from 'animal-island-ui'`.
+3. **Select uses `options` prop, Tabs uses `items` prop** — not compound children pattern.
+
+### Hono + Drizzle + SQL.js
+4. **Auth context key**: Middleware stores `c.set('user', { userId, email })` — routes MUST use `c.get('user').userId`, NOT `c.get('userId')`.
+5. **No `lastInsertRowid`**: SQL.js `.run()` returns `{ changes }` only. Query by unique key after INSERT.
+6. **Batch with `inArray`**: Never fetch related rows in a loop. Use `inArray(column, values)` for single-query batch fetch.
+7. **Schema sync**: Raw SQL CREATE TABLE in seed scripts duplicates Drizzle schema. Extract to shared `migrations.ts`.
+
+### Tool Environment
+8. **Tab indentation breaks Edit tool**: Use spaces in `.ts` files. The Edit tool string matcher fails on tab-indented code.
+9. **Complex TypeScript generics break esbuild**: Simplify deeply nested generic types. esbuild's parser can fail on complex `ReturnType<...>` chains.
+10. **Windows PowerShell**: `$pid` is reserved. `nohup` doesn't exist. Use `Start-Process` for background processes. `&&` not available — use `; if ($?) { }`.
+
+### Backend Security (pre-deploy checklist)
+11. **JWT secret**: Never hardcode fallback secrets. Require `JWT_SECRET` env var or refuse to start.
+12. **Rate limiting**: Apply to `/api/auth/login` and `/api/auth/register` before production.
+13. **LIKE wildcard sanitization**: Escape `%` and `_` in user-supplied search strings before `LIKE` queries.
 
 ## Server Stack (recommended)
 - **Frontend hosting**: Vercel (managed) or Nginx on VPS ($4/mo)
