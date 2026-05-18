@@ -8,7 +8,7 @@ Complete React development lifecycle: brainstorming → worktrees → plan → s
 | Skill | When |
 |-------|------|
 | `react-pipeline:bootstrap` | 会话入口，自动路由 |
-| `react-pipeline:brainstorming` | 构建/创建 React 应用前 **(支持批量提问)** |
+| `react-pipeline:brainstorming` | 构建/创建 React 应用前 **(一次性展示完整视觉目录: 3套基础设计系统 + 16种艺术风格 + 12套字体 + 8种布局, 每条含CSS预览)** |
 | `react-pipeline:git-worktrees` | 开始功能开发前 |
 | `react-pipeline:writing-plans` | 头脑风暴通过后 **(支持 depends_on + parallel_group)** |
 | `react-pipeline:subagent-dev` | 执行实施计划 **(支持并行 Agent 调度)** |

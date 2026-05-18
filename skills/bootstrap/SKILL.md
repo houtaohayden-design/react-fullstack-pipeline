@@ -63,7 +63,7 @@ digraph routing {
 | Skill | Trigger | What It Does |
 |-------|---------|--------------|
 | `react-pipeline:bootstrap` | Every session start | Intent detection, routing (this skill) |
-| `react-pipeline:brainstorming` | "build/make/create a React app" | Requirements → design doc → approach recommendation |
+| `react-pipeline:brainstorming` | "build/make/create a React app" | Requirements → complete visual catalog (ALL 3 design systems + 16 artistic styles + 12 fonts + 8 layouts in ONE message) → design doc → approach recommendation |
 | `react-pipeline:git-worktrees` | "start work on", before writing plans | Isolated git workspace |
 | `react-pipeline:writing-plans` | After brainstorming approval | Bite-sized implementation plan (2-5 min tasks) |
 | `react-pipeline:subagent-dev` | After plan written | Execute plan via fresh subagent per task (includes security-auditor agent for auth/input/data checks) |
@@ -170,3 +170,7 @@ When a task could go to either plugin:
 | "Let me extract this website's design with gstack browse" | gstack browse doesn't have responsible fetching safeguards. Use react-pipeline:train-website instead. |
 | "gstack and react-pipeline are competitors, pick one" | They complement: gstack = browser/QA/design-review; react-pipeline = React implementation/knowledge extraction. Use both where each excels. |
 | "I need to screenshot this page, let me use the train-website skill" | train-website extracts design systems, not screenshots. Use gstack browse for visual QA if gstack is installed. |
+| "Let me show 3 styles now, then ask if they want more" | Present ALL styles in ONE message. Never incrementally. 3→4→16 is the #1 UX complaint. |
+| "I'll describe the styles in text, that's enough" | Every base design system card MUST include a CSS snippet. Visual decisions need visual previews. |
+| "The artistic styles are in the knowledge files, I'll mention them" | Show the full 16-row reference matrix inline. Never hide content behind file references. |
+| "I'll present design systems first, then artistic styles in a follow-up" | Batch everything: base systems + artistic styles + fonts + layouts in ONE catalog message. |
