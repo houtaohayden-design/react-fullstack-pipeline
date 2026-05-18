@@ -19,7 +19,7 @@
 - **引导式开发** — 需求 → 设计 → 规划 → 编码 → 审查 → 部署
 - **知识库优先** — 写代码前先查 63 个已训练条目（35 前端库 + 5 后端框架 + 4 设计方法论 + 20 网站设计系统）
 - **三路径训练** — GitHub 前端仓库（4D提取）+ 网站设计系统提取 + GitHub 后端仓库（4D提取）
-- **并行代理** — 独立任务自动并行调度 8 种子代理执行
+- **并行代理** — 独立任务自动路由到 10 种专业子代理，按任务类型并行执行
 - **一键部署** — Vercel / Cloudflare Pages / VPS / Docker
 
 ---
@@ -322,7 +322,7 @@ react-frontend-tool/
 │   ├── brainstorming/           # 需求 → 视觉目录(CSS预览) → 设计文档
 │   ├── git-worktrees/           # 隔离工作空间
 │   ├── writing-plans/           # 拆分实施计划（支持 depends_on + parallel_group）
-│   ├── subagent-dev/            # 子代理调度 + 并行分发
+│   ├── subagent-dev/            # 子代理调度 + 任务→代理自动路由 + 3 个实现 prompt 模板
 │   ├── tdd/                     # 测试驱动开发 + 模式参考
 │   ├── code-review/             # 两阶段审查 + Canvas/创意编码检查
 │   ├── visual-check/            # 浏览器视觉验证、截图对比、滚动动画检查
