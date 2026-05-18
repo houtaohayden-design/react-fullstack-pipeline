@@ -40,7 +40,7 @@
 | 技能 | 说明 | 何时触发 |
 |------|------|----------|
 | `bootstrap` | 会话入口，自动识别意图并路由到对应技能 | 每个会话开始时自动运行 |
-| `brainstorming` | **一次性展示完整视觉目录**：3套基础设计系统(CSS预览卡片) + 16种艺术风格(矩阵表格) + 12套字体 + 8种布局 + 20个网站设计灵感 | "创建一个 React 应用"、"添加一个功能" |
+| `brainstorming` | **一次性展示完整资源目录**：3套基础设计系统(CSS预览卡片) + 16种艺术风格(矩阵表格) + 12套字体 + 8种布局 + 20个网站设计灵感 + 7个图源(含影视飓风) | "创建一个 React 应用"、"添加一个功能" |
 | `git-worktrees` | 创建隔离的 git worktree 进行功能开发 | 开始写代码前 |
 | `writing-plans` | 将设计拆分为小粒度的可验证任务，支持依赖排序和并行分组 | 设计审批通过后 |
 | `subagent-dev` | 调度专业子代理执行计划任务，支持并行分发 | 有计划任务要执行时 |
@@ -241,6 +241,28 @@
 
 ---
 
+## 图源 & 媒体素材 (7 个来源)
+
+`knowledge/image-sources.md` 中完整文档化，brainstorming 阶段主动展示给用户。所有来源均已集成 React 代码模板：
+
+| # | 来源 | 适用场景 | 认证 |
+|---|------|----------|------|
+| 1 | **影视飓风** | 专业摄影+4K视频素材（自然/动物/城市/航拍） | 无需 key |
+| 2 | Unsplash | 高质量艺术摄影，Hero 大图 | 免费 5000 req/h |
+| 3 | Pexels | 通用配图，多样性最高 | 免费 20000 req/m |
+| 4 | Pixabay | 照片+矢量图+视频 | 免费无限制 |
+| 5 | Lorem Picsum | 开发占位图 | 直接 URL |
+| 6 | unDraw | 开源 SVG 插画（空状态/Onboarding） | MIT 开源 |
+| 7 | DiceBear / UI Avatars | 头像生成 | 直接 URL |
+
+```
+开发阶段 → Picsum (import.meta.env.DEV)
+生产阶段 → Unsplash / Pexels / 影视飓风
+SVG 优先 → unDraw (插画)
+```
+
+---
+	
 ## 已知踩坑 (来自生产流水线验证)
 
 完整列表见 [CLAUDE.md](CLAUDE.md) Known Gotchas 章节。关键项：
@@ -310,6 +332,8 @@ react-frontend-tool/
 │   ├── websites/<slug>/         # 20 个网站设计系统提取
 │   ├── design-systems/          # 23 份设计规格文档
 │   ├── design-skills/<slug>/    # 4 个设计方法论框架
+│   ├── image-sources.md         # 7 个图源 API 文档 + React 集成代码
+│   ├── responsible-fetching.md  # 网站抓取负责任策略
 │   └── lessons-learned/         # 项目经验教训
 ├── docs/
 │   ├── diagrams/                # Mermaid .mmd 源文件
