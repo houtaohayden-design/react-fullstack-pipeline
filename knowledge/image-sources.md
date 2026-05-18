@@ -11,6 +11,7 @@
 | 通用配图 / 多样性高 | Pexels | API，20000 req/m |
 | 矢量图 / 插画 | Pixabay | API，含矢量图 |
 | 空状态 / Onboarding 插画 | unDraw | 开源 SVG，可改色 |
+| 视频素材 / 专业摄影 | **影视飓风素材库** | API，无需 token |
 | 头像 | UI Avatars / DiceBear | 直接 URL |
 | Logo / 图标 | Lucide (已有知识库) | npm 包 |
 
@@ -342,6 +343,195 @@ function StockImage({ source, query, width = 800, height = 600, alt = '', classN
   return <img src={url} alt={alt} loading="lazy" className={className} />
 }
 ```
+
+---
+
+## 7. 影视飓风素材库 — 专业视频/摄影/声音素材
+
+影视飓风（Mediastorm）是国内顶级影视制作团队的公开素材平台。提供专业级视频素材、照片、声音、音乐和素材包。
+
+**API Base**: `https://base.ysjf.com/media_storm`
+**CDN**: `https://public.ysjf.com/mediastorm/material/`
+**认证**: 无需 token，仅需 AppId header
+**免费额度**: 无限制（公开素材库）
+
+### AppId（固定值，从 JS bundle 提取）
+
+```tsx
+const APP_ID = 'TWVkaWFTdG9ybS1XRUItamZSbHJuNDBXUEJmMkJmenE'
+```
+
+### 素材类型
+
+| 类型 | API type 参数 | 说明 |
+|------|-------------|------|
+| 视频 | `video` | 专业视频素材（含 mp4 预览），索尼/RED/Canon 等设备拍摄 |
+| 照片 | `image` | 专业摄影作品，含相机和镜头参数 |
+| 素材包 | `pack` | 打包素材合集 |
+| 声音 | `audio` | 音效素材 |
+| 音乐 | `music` | 音乐素材 |
+| 节目与合集 | — | 按系列/节目的合集 |
+
+### API 端点
+
+**GET 素材列表**
+```
+GET https://base.ysjf.com/media_storm/material_items
+  ?pageNo=1
+  &pageSize=20
+  &keyword=自然
+  &type=image
+  &sort=hot
+  &tags=动物:近景:SONY
+Headers:
+  AppId: TWVkaWFTdG9ybS1XRUItamZSbHJuNDBXUEJmMkJmenE
+```
+
+**GET 素材详情**
+```
+GET https://base.ysjf.com/media_storm/materials/{id}
+```
+
+**GET 合集详情**
+```
+GET https://base.ysjf.com/media_storm/collections/{id}
+```
+
+### 筛选标签
+
+用于 `tags` 参数，格式 `内容类型:景别:相机品牌`（用 `:` 连接）：
+
+| 标签类型 | 可用值 |
+|----------|--------|
+| 内容 | 城市人文, 延时, 自然风景, 动物, 人文, 显微摄影, 航拍, 空镜, 极限运动 |
+| 景别 | 全景, 远景, 中景, 近景, 特写 |
+| 相机品牌 | DJI, SONY, Canon, Apple, FUJIFILM, Ember, NiKon, RED, Panasonic, GoPro, BMD, LEICA |
+| 节目(热门标签) | DJIFlip评测, 样片日记-川西, 黑水摄影, 开车去罗马, 等等 |
+
+### 排序
+
+| 参数值 | 说明 |
+|--------|------|
+| `time` | 最近更新 |
+| `hot` | 热度最高 |
+
+### 图片 URL 处理（OSS 图片处理）
+
+所有封面图使用阿里云 OSS，可通过 URL 参数调整尺寸：
+
+```
+# 原图（500px 宽）
+https://public.ysjf.com/mediastorm/material/material/example.jpg?x-oss-process=image/resize,w_500
+
+# 改成 1200px 宽
+https://public.ysjf.com/mediastorm/material/material/example.jpg?x-oss-process=image/resize,w_1200
+```
+
+### React Hook
+
+```tsx
+interface YSJFMaterial {
+  id: string
+  name: string
+  type: 'video' | 'image' | 'music' | 'audio'
+  cover: string
+  preview: { url: string; type: string }[] | null
+  tags: { name: string; type: string; priority: number }[]
+  downloadCount: number
+  createTime: string
+}
+
+const YSJF_CONFIG = {
+  baseURL: 'https://base.ysjf.com/media_storm',
+  appId: 'TWVkaWFTdG9ybS1XRUItamZSbHJuNDBXUEJmMkJmenE',
+}
+
+async function fetchYSJFMaterials(params: {
+  keyword?: string
+  type?: 'video' | 'image' | 'music' | 'audio'
+  sort?: 'hot' | 'time'
+  tags?: string[]
+  pageNo?: number
+  pageSize?: number
+}) {
+  const searchParams = new URLSearchParams()
+  searchParams.set('pageNo', String(params.pageNo ?? 1))
+  searchParams.set('pageSize', String(params.pageSize ?? 20))
+  if (params.keyword) searchParams.set('keyword', params.keyword)
+  if (params.type) searchParams.set('type', params.type)
+  if (params.sort) searchParams.set('sort', params.sort)
+  if (params.tags?.length) searchParams.set('tags', params.tags.join(','))
+
+  const res = await fetch(`${YSJF_CONFIG.baseURL}/material_items?${searchParams}`, {
+    headers: { AppId: YSJF_CONFIG.appId },
+  })
+  if (!res.ok) throw new Error(`YSJF API: ${res.status}`)
+  const json = await res.json()
+  return json.data as { total: number; entities: YSJFMaterial[] }
+}
+
+function useYSJFImages(keyword: string, count = 10) {
+  const [images, setImages] = useState<YSJFMaterial[]>([])
+  const [loading, setLoading] = useState(true)
+
+  useEffect(() => {
+    fetchYSJFMaterials({ keyword, type: 'image', pageSize: count, sort: 'hot' })
+      .then(data => setImages(data.entities))
+      .catch(console.error)
+      .finally(() => setLoading(false))
+  }, [keyword, count])
+
+  return { images, loading }
+}
+```
+
+### React 组件示例
+
+```tsx
+function YSJFImageGrid({ keyword = '自然风景' }: { keyword?: string }) {
+  const { images, loading } = useYSJFImages(keyword)
+
+  if (loading) return <div className="skeleton-grid" />
+
+  return (
+    <div className="image-grid">
+      {images.map(img => {
+        // 把封面图从 w_500 升级到 w_1200
+        const hdCover = img.cover.replace('w_500', 'w_1200')
+        return (
+          <figure key={img.id}>
+            <img src={hdCover} alt={img.name} loading="lazy" />
+            <figcaption>
+              <span>{img.name}</span>
+              <span className="tags">
+                {img.tags.map(t => t.name).join(' · ')}
+              </span>
+            </figcaption>
+          </figure>
+        )
+      })}
+    </div>
+  )
+}
+```
+
+### 归因要求
+
+虽无强制要求，但建议标注来源：
+
+```tsx
+<footer className="text-xs text-gray-400">
+  素材来源：<a href="https://www.ysjf.com/material">影视飓风素材库</a>
+</footer>
+```
+
+### 适用场景
+
+- **视频背景** — 专业 4K 视频素材作为网站 Hero 背景
+- **摄影作品展示** — 高质量照片直接用作卡片配图
+- **自然/旅行主题网站** — 大量延时摄影和自然风光
+- **产品演示视频** — 视频预览可直接嵌入
+- **创作型网站** — 相比普通 stock photo，画面更有艺术感
 
 ---
 

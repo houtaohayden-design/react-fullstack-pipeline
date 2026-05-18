@@ -106,7 +106,8 @@ See `knowledge/image-sources.md` for full API reference + React integration code
 - **照片+矢量+视频**: Pixabay
 - **开源 SVG 插画**: unDraw (可改色, MIT 开源)
 - **头像生成**: UI Avatars / DiceBear (直接 URL, 无 API key)
-- **使用模式**: 开发阶段用 Picsum (`import.meta.env.DEV`), 生产用 Unsplash/Pexels, SVG 优先用于插画
+- **专业视频+摄影素材**: 影视飓风素材库 (免费 API, 无需 token, 4K 视频/专业照片/声音/音乐)
+- **使用模式**: 开发阶段用 Picsum (`import.meta.env.DEV`), 生产用 Unsplash/Pexels/影视飓风, SVG 优先用于插画
 
 ## Known Gotchas (from production pipeline verification)
 
