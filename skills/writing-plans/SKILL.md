@@ -101,6 +101,33 @@ Phase 4 (verify):
 - [ ] Router/lazy loading decisions made
 - [ ] Backend and frontend tasks separated into different `parallel_group`s
 
+## Pre-Flight Checks (Vite + TypeScript)
+Run these BEFORE writing plan tasks to avoid build errors downstream:
+
+- [ ] **Read `tsconfig.app.json`**: Check `verbatimModuleSyntax` — if ON, ALL plan code must use `import type` for type-only imports
+- [ ] **Check `strict` mode**: If missing, add as Task 0. Without it, nullable API returns (like `canvas.getContext('2d')`) won't be checked
+- [ ] **CSS import order**: If plan creates a CSS file that imports other CSS files, order tasks so dependencies are created first
+- [ ] **Check for dead code risk**: Every created file must be imported by at least one other file in the plan
+- [ ] **`erasableSyntaxOnly`**: If enabled, no enums, no namespaces, no parameter properties — only `type` and `interface`
+
+## Creative/Visual Project Guidance
+When the project involves Canvas 2D, WebGL, scroll-driven animation, or particle systems:
+
+- [ ] **Canvas sizing**: Plan uses ResizeObserver, NOT per-frame width/height assignment
+- [ ] **HiDPI**: Plan includes `devicePixelRatio` scaling for canvas
+- [ ] **rAF + framer-motion**: Plan documents ref-vs-deps pattern (MotionValues go in refs, NOT useEffect deps)
+- [ ] **ErrorBoundary**: Include an ErrorBoundary task early in the plan
+- [ ] **Content tasks**: Text, navigation, and copy are implementation tasks, not afterthoughts
+- [ ] **Reset/cleanup**: Canvas renderers need reset functions; plan includes wiring them on chapter/scene switch
+- [ ] **dt clamping**: Plan mentions `Math.min(dt, 0.05)` for all rAF loops
+
+## Project Type Detection
+| Project Type | Task Size | Subagent Strategy | Example |
+|---|---|---|---|
+| CRUD/SaaS | 2-5 min micro-tasks | Parallel subagent groups | Admin dashboard, form-heavy app |
+| Creative/Visual | 10-20 min larger tasks | Fewer tasks, inline preferred | Scroll art, particle systems, WebGL |
+| Hybrid | Mix by layer | Backend: micro-tasks, Visual: larger tasks | Portfolio with CMS backend |
+
 ## Next Steps
 - If no isolation: **REQUIRED SUB-SKILL:** Use `react-pipeline:git-worktrees`
 - To execute: **REQUIRED SUB-SKILL:** Use `react-pipeline:subagent-dev`

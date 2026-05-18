@@ -77,6 +77,23 @@ Run through these checks for each page:
 - [ ] **Accessibility**: Focus rings visible, contrast meets WCAG AA
 - [ ] **Performance**: No visible jank, CLS < 0.1, LCP renders quickly
 
+### Scroll-Driven Experience Checks
+For scrollytelling, scroll-snap, or chapter-based pages:
+
+- [ ] **Text visibility at chapter boundaries**: Check opacity values at chapter start (chapterProgress ≈ 0). If opacity = chapterProgress, text will be invisible. Minimum text opacity should be ≥ 0.75.
+- [ ] **Scroll-snap alignment**: No elements cut off at snap points. All chapter content fully visible within viewport.
+- [ ] **Chapter transition smoothness**: No visual jank when crossing chapter boundaries. Particles reset cleanly.
+- [ ] **Canvas overlay DPI**: Canvas rendering matches DOM sharpness at all zoom levels.
+- [ ] **Mouse interaction on canvas**: Mouse parallax/repulsion works across all chapters. No dead zones.
+- [ ] **Navigation indicator accuracy**: Active chapter matches visible content. Chapter dots/labels update during scroll, not just at snap.
+
+### Creative Coding Visual Checks (Canvas 2D, Particles, WebGL)
+- [ ] **Particle count visual**: At max particle count (500+), frame rate stays smooth. No visible stutter.
+- [ ] **Color palette consistency**: Canvas particles use the same design tokens as DOM elements. No color mismatch.
+- [ ] **Glass/Blur overlays**: `backdrop-filter: blur()` renders correctly. Not disabled by browser settings.
+- [ ] **Shadow depth**: Neumorphic shadows (raised/inset) distinguishable at all progress values.
+- [ ] **Dark/light consistency**: If both themes exist, canvas particles are visible in both.
+
 ### Step 5: Diff & Report
 
 **With gstack:**

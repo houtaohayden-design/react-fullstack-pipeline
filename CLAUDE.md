@@ -129,6 +129,24 @@ Cross-cutting layers (apply to any design system):
 15. **Rate limiting**: Apply to `/api/auth/login` and `/api/auth/register` before production.
 16. **LIKE wildcard sanitization**: Escape `%` and `_` in user-supplied search strings before `LIKE` queries.
 
+### Vite + TypeScript (from wabi-neu project, 2026-05-18)
+17. **`verbatimModuleSyntax` is ON by default**: Vite React-TS template enables this. ALL type-only imports MUST use `import type { X }` not `import { type X }`. Affects every file that imports interfaces.
+18. **Enable `strict: true` at scaffold time**: Without it, `ctx.getContext('2d')` (returns `null | CanvasRenderingContext2D`) has no null-check enforcement. Add to tsconfig.app.json during project init.
+19. **CSS file ordering matters**: If `global.css` imports `tokens.css`, create `tokens.css` FIRST. Vite fails hard on missing CSS imports (unlike JS which shows runtime error).
+
+### Canvas 2D + framer-motion (creative coding, from wabi-neu project)
+20. **Never set `canvas.width`/`canvas.height` inside rAF**: Every assignment destroys and reallocates the backing store. 60fps × 8MB allocation = GC thrashing. Use `ResizeObserver` for sizing.
+21. **Never put framer-motion values in rAF useEffect deps**: `chapterProgress` changes every scroll tick (~60fps). Putting it in the dependency array tears down and recreates the rAF loop on every frame. Use `useRef` + read `.current` in the loop.
+22. **Canvas HiDPI**: Always scale by `window.devicePixelRatio`. Set `canvas.width = w * dpr; canvas.height = h * dpr; ctx.scale(dpr, dpr)`. Without it, Retina displays show blurry particles.
+23. **Module-level state survives HMR but breaks tests**: `let particles = []` at module scope persists across hot reloads but leaks between vitest test cases. Use resetters or closure-based state.
+24. **Never use string-replace for color manipulation**: `color.replace('rgb', 'rgba').replace(')', ',0.5)')` breaks on `rgba(...)` input → produces `rgbargba(...)`. Use regex parsing or a proper color library.
+25. **rAF dt clamping**: Always `Math.min(dt, 0.05)` (50ms cap). Tab-switch away and back produces seconds-long dt spikes that launch particles off-screen.
+26. **Always wrap React tree in ErrorBoundary**: A single Canvas 2D exception unmounts the entire tree → white screen. For art pieces this means total visual loss. Add ErrorBoundary at App root.
+
+### Subagent Execution Strategy (from wabi-neu project)
+27. **Creative/visual projects → fewer, larger tasks**: Wabi-neu had 18 plan tasks producing ~20 files. Pure subagent execution would be 54+ invocations (implementer + 2 reviewers each). For tightly-coupled creative projects (CSS ↔ components ↔ canvas), prefer inline execution with fewer, larger tasks. Reserve subagent micro-execution for CRUD/SaaS projects with independent features.
+28. **Plan content requirements in creative projects**: Text, navigation, and copy ARE implementation for scroll-telling/art pieces. The plan MUST include content tasks. Don't treat "文案" as separate from code.
+
 ## Server Stack (recommended)
 - **Frontend hosting**: Vercel (managed) or Nginx on VPS ($4/mo)
 - **Backend**: Hono (fastest, edge-native) or Fastify (high-perf Node)

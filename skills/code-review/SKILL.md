@@ -53,11 +53,38 @@ Result: PASS, COMMENT (suggestions), or CHANGE_REQUIRED (must fix)
 |----------|------|-----|
 | P0 | Hook rules violations | Causes subtle bugs |
 | P0 | Missing keys on lists | Causes reconciliation bugs |
+| P0 | Canvas per-frame dimension assignment | Backing-store reallocation at 60fps |
+| P0 | rAF loop restart on scroll tick | MotionValue in useEffect deps |
 | P1 | Missing accessibility | Blocks users |
 | P1 | Memory leaks (useEffect cleanup) | Degrades UX over time |
+| P1 | Missing ErrorBoundary | Single exception → white screen |
+| P1 | No HiDPI canvas scaling | Blurry on Retina displays |
 | P2 | Unnecessary re-renders | Performance |
 | P2 | Large components (>200 lines) | Maintainability |
+| P2 | Module-level mutable state | Leaks between tests, survives HMR |
+| P2 | Fragile string manipulation | `str.replace('rgb'...` breaks on `rgba` input |
 | P3 | Naming conventions | Consistency |
+
+## Creative Coding Specific Checks (Canvas 2D, WebGL, Particles)
+
+When reviewing code that uses Canvas 2D or rAF loops:
+
+### Canvas 2D
+- [ ] **No `canvas.width`/`canvas.height` assignment in rAF**: Every assignment destroys backing store. Must use ResizeObserver.
+- [ ] **HiDPI support**: `canvas.width = w * dpr; canvas.height = h * dpr; ctx.scale(dpr, dpr)`
+- [ ] **Context null check**: `const ctx = canvas.getContext('2d'); if (!ctx) return;`
+- [ ] **No string-replace for colors**: `color.replace('rgb', 'rgba').replace(')', ',0.5)')` is fragile. Use regex `^rgb\((\d+),\s*(\d+),\s*(\d+)\)$` or a proper color library.
+
+### requestAnimationFrame
+- [ ] **No reactive values in effect deps**: framer-motion values (`chapterProgress`, `scrollY`) must live in refs, not trigger effect restarts
+- [ ] **dt clamping**: `const clampedDt = Math.min(dt, 0.05)` — prevents tab-switch spike
+- [ ] **Cleanup cancels rAF**: `return () => cancelAnimationFrame(rafRef.current)`
+- [ ] **lastTimeRef reset on chapter/scene switch**: Avoid stale delta on re-entry
+
+### Particle / Module State
+- [ ] **No bare `let` at module scope**: `let particles = []` leaks between tests. Use factory functions or export `reset*()`.
+- [ ] **Reset wired**: If renderers have reset functions, they must be called from the parent component on scene switch
+- [ ] **Lifecycle**: Dead particles replaced, not accumulated (array grows boundlessly otherwise)
 
 ## Receiving External Review
 When consuming code review feedback:
