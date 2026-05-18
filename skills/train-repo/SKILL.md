@@ -1,12 +1,12 @@
 ---
 name: react-pipeline:train-repo
-description: Use when user provides a GitHub URL to a React library — clones, extracts structured knowledge (api.md + patterns.md), and updates the knowledge base registry.
+description: Use when user provides a GitHub URL to a React library — clones, extracts structured knowledge (api.md + patterns.md + interaction-patterns.md + design-tokens.md), and updates the knowledge base registry.
 ---
 
 # Training a Repository
 
 ## Core Principle
-Digest a GitHub React library into structured knowledge so `react-pipeline:react-tool` can reference it when writing code.
+Digest a GitHub React library into structured knowledge so `react-pipeline:react-tool` can reference it when writing code. Now extracts 4 knowledge dimensions: API, patterns, interactions, and design tokens.
 
 ## Workflow
 
@@ -15,7 +15,7 @@ Extract slug from repo URL:
 - `https://github.com/sheinsight/shineout` → `shineout`
 - `https://github.com/TanStack/query` → `tanstack-query`
 
-Assign to one of the 12 categories:
+Auto-detect category or assign to one of the 13 categories:
 ```
 ui-libraries / headless / data-fetching / hooks-utilities /
 animation / routing / state-management / charts /
@@ -27,7 +27,7 @@ guides / backend / database / deployment / auth
 git clone --depth 1 <repo-url> "knowledge/repos/<category>/<slug>"
 ```
 
-### Step 3: Extract Knowledge — Create api.md
+### Step 3: Extract Knowledge — api.md
 ```markdown
 # <Repo Name> — API Reference
 > package-name vX.Y | type | React >= X
@@ -43,9 +43,10 @@ npm install <package>
 - **Usage:** <minimal working example>
 ```
 
-### Step 4: Extract Knowledge — Create patterns.md
+### Step 4: Extract Knowledge — patterns.md
 ```markdown
 # <Repo Name> — Patterns
+
 ## 定位
 What this library is, what it solves.
 
@@ -59,36 +60,80 @@ How this works with:
 - Tailwind CSS
 ```
 
-### Step 5: Clean Source Files
-Remove cloned source, keep only api.md + patterns.md:
-```bash
-# Delete everything except api.md and patterns.md
-Get-ChildItem -Exclude "api.md","patterns.md" | Remove-Item -Recurse -Force
+### Step 5: Extract Interactions — interaction-patterns.md
+Extract every interactive behavior from source code:
+```markdown
+# <Repo Name> — Interaction Patterns
+
+## Hover States
+[List with trigger, behavior, implementation, duration]
+
+## Focus States
+## Active/Press States
+## Transitions
+## Gestures
+## Keyboard Navigation
+## Loading States
+## Empty/Error States
+## Feedback Patterns
+## Motion Tokens
 ```
 
-### Step 6: Update Registry
+### Step 6: Extract Design Tokens — design-tokens.md
+Extract the design token system:
+```markdown
+# <Repo Name> — Design Tokens
+
+## Color Palette
+[Token table with light/dark values and usage]
+
+## Typography
+[Scale with size, weight, line-height]
+
+## Spacing
+## Border Radius
+## Shadow/Elevation
+## Breakpoints
+## Z-Index
+## Animation Tokens
+```
+
+### Step 7: Clean Source Files
+Remove cloned source, keep only knowledge files:
+```bash
+# Delete everything except .md files
+Get-ChildItem -Exclude "*.md" | Remove-Item -Recurse -Force
+```
+
+### Step 8: Update Registry
 Add entry to `knowledge/registry.json` → `trained` array:
 ```json
 {
   "slug": "<slug>",
   "name": "<package-name>",
   "source": "<repo-url>",
-  "type": "<component-library|utility|animation-library|reference-guide>",
+  "type": "<type>",
   "category": "<category>",
   "platform": "<web|react-native|vue>",
   "style": "<style description>",
   "components": <count>,
-  "highlights": ["key", "features"],
+  "highlights": ["key1", "key2", "key3"],
+  "extracted": {
+    "interactions": <count>,
+    "designTokens": <count>
+  },
   "compatibility": { "tailwind": "<yes|partial|no>", "react-bits": "<yes|complementary|no>", "react-version": ">=X" },
   "trained": "<YYYY-MM-DD>"
 }
 ```
 
-### Step 7: Verify
-Confirm api.md and patterns.md are discoverable:
+### Step 9: Verify
+Confirm all knowledge files exist:
 ```
 knowledge/repos/<category>/<slug>/api.md ✓
 knowledge/repos/<category>/<slug>/patterns.md ✓
+knowledge/repos/<category>/<slug>/interaction-patterns.md ✓
+knowledge/repos/<category>/<slug>/design-tokens.md ✓
 registry.json entry ✓
 ```
 

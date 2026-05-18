@@ -1,6 +1,6 @@
 ---
 name: react-tool
-description: Use when building React UI components or pages, creating frontend interfaces, or writing any React code. Checks knowledge base (26+ trained repos, animal-island-ui, react-bits) for applicable components before writing custom code. Use when user asks to build React UI, frontend, component, or page.
+description: Use when building React UI components or pages, creating frontend interfaces, or writing any React code. Checks knowledge base (26+ trained repos, animal-island-ui, react-bits, design-inspiration websites) for applicable components before writing custom code. Use when user asks to build React UI, frontend, component, or page.
 ---
 > **Authoritative source:** `skills/react-tool/SKILL.md` (prefixed name: `react-pipeline:react-tool`)
 ---
@@ -9,14 +9,15 @@ description: Use when building React UI components or pages, creating frontend i
 
 ## Overview
 
-Before writing any React UI code, check the knowledge base for existing components that can be reused, combined, or styled. Never write custom animation or UI component from scratch without first checking what's available.
+Before writing any React UI code, check the knowledge base for existing components, patterns, and design references that can be reused, combined, or styled. Never write custom animation or UI component from scratch without first checking what's available.
 
 ## Knowledge Sources (check in this order)
 
 0. **Design system spec** — if user selected a premium UI style during brainstorming → `knowledge/design-systems/` (动森增强 / shadcn专业 / 玻璃拟态)
 1. **react-bits** — animation/motion layer: text animations, backgrounds, scroll effects, interactive components
 2. **animal-island-ui** — 动森风格 base components: Button, Card, Modal, Input, etc. (ONLY when user asks for 动物森友会/animal-island/可爱圆润风格)
-3. **Trained repos** — user-provided GitHub component libraries (`knowledge/registry.json` → `trained` array)
+3. **Trained repos** — user-provided GitHub component libraries (`knowledge/registry.json` → `trained` array) — now with interaction patterns and design tokens
+4. **Design inspiration** — website design system extractions (`knowledge/websites/<slug>/design-system.md`) — layout, color, typography, motion, interactions
 
 ## Workflow
 
@@ -30,6 +31,10 @@ User asks for React UI
     → NO: Start with standard React/HTML
   → Need animations/motion?
     → Check react-bits FIRST (110+ components)
+  → Need interaction patterns or design tokens?
+    → Check trained repos interaction-patterns.md + design-tokens.md
+  → Need design reference for a specific style?
+    → Check knowledge/websites/ for matching design-system.md
   → Check registry.json trained repos for matching components
   → Synthesize: pick best components from each source
   → Write code
@@ -40,9 +45,10 @@ User asks for React UI
 | Priority | Source | When |
 |----------|--------|------|
 | 1 | Trained repos | User's own preferred libraries |
-| 2 | react-bits | Any animation, motion, or visual effect |
-| 3 | animal-island-ui | Only when 动森风格 explicitly requested |
-| 4 | Custom | Only when nothing above fits |
+| 2 | Design inspiration (websites) | Need design reference for specific style/aesthetic |
+| 3 | react-bits | Any animation, motion, or visual effect |
+| 4 | animal-island-ui | Only when 动森风格 explicitly requested |
+| 5 | Custom | Only when nothing above fits |
 
 ## Quick Reference
 
@@ -58,17 +64,26 @@ User asks for React UI
 - Effect: Cursor, Typewriter, CodeBlock
 
 ### Design systems & artistic styles
-- `knowledge/design-systems/` — 3 premium UI specs, 12 font pairings, 8 layout systems, 8 artistic styles
+- `knowledge/design-systems/` — 3 premium UI specs, 12 font pairings, 8 layout systems, 16 artistic styles
 - Each spec includes component mapping, color palette, animation patterns, and ready-to-use code
 
-### Trained repos
-Check `D:\Claude Code\react-frontend-tool\knowledge\registry.json` for full list.
-Each trained repo has API docs at `knowledge/repos/<slug>/api.md`.
+### Design inspiration (website extractions)
+- `knowledge/websites/<slug>/design-system.md` — complete design system extracted from live sites
+- Each entry: layout, color CSS vars, typography pairing, motion catalog, interaction patterns, component patterns
+
+### Trained repos (now with 4D extraction)
+Check `knowledge/registry.json` for full list.
+Each trained repo now has:
+- `knowledge/repos/<slug>/api.md` — component API reference
+- `knowledge/repos/<slug>/patterns.md` — usage patterns
+- `knowledge/repos/<slug>/interaction-patterns.md` — hover, focus, gesture, keyboard, motion tokens
+- `knowledge/repos/<slug>/design-tokens.md` — colors, typography, spacing, shadows, breakpoints
 
 ## Rules
 
 - Never write custom animation without checking react-bits first
 - Never write custom UI component without checking trained repos first
+- Never design a page layout without checking design-inspiration references first
 - animal-island-ui is ONLY for 动森风格 — don't suggest it for general React projects
 - When combining libraries, import only what's needed (tree-shaking)
 - Always check component dependencies before use (GSAP, Motion, three.js, ogl)

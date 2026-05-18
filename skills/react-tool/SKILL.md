@@ -12,15 +12,17 @@ Never write custom code when a trained repository already provides the solution.
 
 ```
 0. Design system spec (if user selected UI style → knowledge/design-systems/)
-1. Trained repos (user's preferred libraries)
-2. react-bits (animation/motion/visual effects)
-3. animal-island-ui (ONLY when 动森风格 explicitly requested)
-4. Custom implementation (only when nothing above fits)
+1. Trained repos (user's preferred libraries — now with interaction-patterns.md + design-tokens.md)
+2. Design inspiration (website design systems → knowledge/websites/<slug>/design-system.md)
+3. react-bits (animation/motion/visual effects)
+4. animal-island-ui (ONLY when 动森风格 explicitly requested)
+5. Custom implementation (only when nothing above fits)
 ```
 
 ## Knowledge Base Structure
-`knowledge/registry.json` — index of all trained repos (v2 with categories)
-`knowledge/repos/<category>/<slug>/` — api.md + patterns.md
+`knowledge/registry.json` — index of all trained repos and website extractions (v2.1 with 14 categories)
+`knowledge/repos/<category>/<slug>/` — api.md + patterns.md + interaction-patterns.md + design-tokens.md
+`knowledge/websites/<slug>/` — design-system.md (complete design system extractions)
 
 ### Categories
 
@@ -35,6 +37,7 @@ Never write custom code when a trained repository already provides the solution.
 | `state-management` | Global/atomic state | jotai, redux-toolkit |
 | `charts` | Data visualization | recharts |
 | `guides` | Reference, ecosystem | rn-guide |
+| `design-inspiration` | Design reference, style direction, component patterns | Extracted from live websites → `knowledge/websites/` |
 
 ## Component Selection Priority
 

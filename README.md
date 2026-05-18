@@ -1,13 +1,13 @@
 # React Full-Stack Development Pipeline
 
-> Claude Code Plugin — 20 skills, 6 agents, 26 trained libraries, 23 design system specs.
+> Claude Code Plugin — 23 skills, 8 agents, 63 trained entries, 20 website design systems.
 > Complete React development lifecycle from brainstorming to backend deployment.
 
-[![Version](https://img.shields.io/badge/version-2.1.0-blue)](https://github.com/houtaohayden-design/react-fullstack-pipeline)
-[![Skills](https://img.shields.io/badge/skills-20-brightgreen)]()
-[![Agents](https://img.shields.io/badge/agents-6-orange)]()
-[![Trained Libs](https://img.shields.io/badge/trained--libs-26-purple)]()
-[![Design Specs](https://img.shields.io/badge/design--specs-23-pink)]()
+[![Version](https://img.shields.io/badge/version-2.3.0-blue)](https://github.com/houtaohayden-design/react-fullstack-pipeline)
+[![Skills](https://img.shields.io/badge/skills-23-brightgreen)]()
+[![Agents](https://img.shields.io/badge/agents-8-orange)]()
+[![Knowledge](https://img.shields.io/badge/knowledge-63-purple)]()
+[![Websites](https://img.shields.io/badge/websites-20-pink)]()
 
 ---
 
@@ -17,8 +17,9 @@
 
 **核心能力：**
 - **引导式开发** — 需求 → 设计 → 规划 → 编码 → 审查 → 部署
-- **知识库优先** — 写代码前先查 26 个已训练的 React 库，避免重复造轮子
-- **并行代理** — 独立任务自动并行调度子代理执行
+- **知识库优先** — 写代码前先查 63 个已训练条目（35 前端库 + 5 后端框架 + 4 设计方法论 + 20 网站设计系统）
+- **三路径训练** — GitHub 前端仓库（4D提取）+ 网站设计系统提取 + GitHub 后端仓库（4D提取）
+- **并行代理** — 独立任务自动并行调度 8 种子代理执行
 - **一键部署** — Vercel / Cloudflare Pages / VPS / Docker
 
 ---

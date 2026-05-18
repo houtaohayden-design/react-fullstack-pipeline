@@ -1,8 +1,8 @@
-# React Full-Stack Pipeline v2.0
+# React Full-Stack Pipeline v2.3
 
-Complete React development lifecycle: brainstorming → worktrees → plan → subagent-dev → TDD → code-review → deploy → backend.
+Complete React development lifecycle: brainstorming → worktrees → plan → subagent-dev → TDD → code-review → deploy → backend. Triple-path training: frontend repos (4D) + website design systems + backend repos (4D).
 
-## Skills (20 total)
+## Skills (23 total)
 
 ### Process Pipeline
 | Skill | When |
@@ -15,12 +15,14 @@ Complete React development lifecycle: brainstorming → worktrees → plan → s
 | `react-pipeline:tdd` | 编写实现代码前 |
 | `react-pipeline:code-review` | 任务间/合并前 |
 | `react-pipeline:finish-branch` | 所有任务完成时 |
+| `react-pipeline:visual-check` | 浏览器视觉验证、截图对比、响应式检查 |
 
 ### React Domain
 | Skill | When |
 |-------|------|
 | `react-pipeline:react-tool` | 写 React 代码 |
-| `react-pipeline:train-repo` | 喂 GitHub 链接训练知识库 |
+| `react-pipeline:train-repo` | 喂 GitHub 链接训练知识库 **(4D提取: API+Patterns+Interactions+Tokens)** |
+| `react-pipeline:train-website` | 喂网站 URL 提取设计系统 **(全维度: 布局+配色+字体+动效+交互+组件)** |
 | `react-pipeline:component-design` | 设计新组件 |
 | `react-pipeline:styling-system` | CSS/主题架构决策 |
 
@@ -39,12 +41,15 @@ Complete React development lifecycle: brainstorming → worktrees → plan → s
 | `react-pipeline:database` | 数据库设计 |
 | `react-pipeline:auth` | 认证授权 |
 | `react-pipeline:api-client` | 前端 API 集成 |
+| `react-pipeline:train-backend` | 训练后端知识库 **(4D: API+Patterns+Backend+API-Design)** |
 
-## Agents (6 types)
+## Agents (8 types)
 - **react-implementer** — Execute single task from plan (runs in parallel groups when tasks are independent)
 - **react-spec-reviewer** — Verify impl matches spec
 - **react-code-reviewer** — Code quality review
-- **react-trainer** — Train GitHub repos into knowledge base
+- **react-trainer** — Train GitHub frontend repos into knowledge base (4D: api + patterns + interactions + tokens)
+- **react-design-learner** — Extract complete design system from live websites (layout, color, typography, motion, interactions, components)
+- **react-backend-learner** — Search and train backend repos (500+ stars): API frameworks, ORMs, auth, database tools (4D: api + patterns + backend-patterns + api-patterns)
 - **react-deployer** — Deploy and configure servers
 - **react-backend-engineer** — Build backend APIs
 
@@ -55,10 +60,14 @@ Complete React development lifecycle: brainstorming → worktrees → plan → s
 - Expected speedup: ~53% faster execution (backend + frontend tasks run concurrently)
 
 ## Knowledge Base
-- `knowledge/registry.json` — Repository index (26 trained, 13 categories)
-- `knowledge/repos/<category>/<slug>/` — Structured knowledge (api.md + patterns.md)
+- `knowledge/registry.json` — Repository index (63 trained, 16 categories)
+- `knowledge/repos/<category>/<slug>/` — Structured knowledge (api.md + patterns.md + optional interaction-patterns.md + design-tokens.md)
+- `knowledge/websites/<slug>/design-system.md` — 20 live website design system extractions
+- `knowledge/design-skills/<slug>/` — 4 design methodology frameworks (gstack, impeccable, taste-skill, ui-ux-pro-max)
+- `knowledge/design-systems/` — 20+ premium design reference guides (typography, color, motion, layout, components)
 - Builtin: animal-island-ui (17 components), react-bits (110+ animations)
-- Trained: 26 repos across 13 categories (shineout, beeshell, datav, shadcn-ui, radix-primitives, react-hook-form, zustand, ahooks, tanstack-table, dnd-kit, tanstack-query, react-router, framer-motion, swr, downshift, react-aria, jotai, redux-toolkit, mantine, nextui, sonner, recharts, react-use, usehooks-ts, rn-guide, datav-react)
+- Trained: 63 entries — frontend repos (35), backend repos (5), design skills (4), websites (20), auth/database/css-in-js (4)
+- Categories: ui-libraries (10), headless (7), data-fetching (2), hooks-utilities (3), animation (5), routing (1), state-management (2), charts (1), guides (1), backend (3), database (1), auth (1), css-in-js (2), design-skills (4), design-inspiration (20), deployment (reserved)
 
 ## Premium Design Systems (brainstorming Round 1, question 5)
 User selects one of three premium UI styles during initial inquiry. Full specs at `knowledge/design-systems/`:
@@ -103,15 +112,22 @@ Cross-cutting layers (apply to any design system):
 6. **Batch with `inArray`**: Never fetch related rows in a loop. Use `inArray(column, values)` for single-query batch fetch.
 7. **Schema sync**: Raw SQL CREATE TABLE in seed scripts duplicates Drizzle schema. Extract to shared `migrations.ts`.
 
+### Website Design Extraction
+8. **Responsible Fetching**: ALL website extraction agents MUST follow `knowledge/responsible-fetching.md`. Max 15 requests, 2s delay, stop on 429/403/503. Small sites (non-CDN): 5 requests, homepage only. User-Agent: `DesignSystemAnalyzer/1.0`.
+
 ### Tool Environment
-8. **Tab indentation breaks Edit tool**: Use spaces in `.ts` files. The Edit tool string matcher fails on tab-indented code.
-9. **Complex TypeScript generics break esbuild**: Simplify deeply nested generic types. esbuild's parser can fail on complex `ReturnType<...>` chains.
-10. **Windows PowerShell**: `$pid` is reserved. `nohup` doesn't exist. Use `Start-Process` for background processes. `&&` not available — use `; if ($?) { }`.
+9. **Tab indentation breaks Edit tool**: Use spaces in `.ts` files. The Edit tool string matcher fails on tab-indented code.
+10. **Complex TypeScript generics break esbuild**: Simplify deeply nested generic types. esbuild's parser can fail on complex `ReturnType<...>` chains.
+11. **Windows PowerShell**: `$pid` is reserved. `nohup` doesn't exist. Use `Start-Process` for background processes. `&&` not available — use `; if ($?) { }`.
+
+### gstack Coexistence
+12. **gstack + react-pipeline routing**: When both plugins are installed, route browser/visual tasks to gstack (Playwright), React implementation to react-pipeline (knowledge base). Design review of live sites → gstack. Knowledge extraction → react-pipeline. See `skills/bootstrap/SKILL.md` for full routing table.
+13. **Never chain both plugins for the same task**: Don't invoke gstack design-review then react-pipeline code-review for the same component. Pick the right tool for the layer: visual review → gstack, code-level review → react-pipeline.
 
 ### Backend Security (pre-deploy checklist)
-11. **JWT secret**: Never hardcode fallback secrets. Require `JWT_SECRET` env var or refuse to start.
-12. **Rate limiting**: Apply to `/api/auth/login` and `/api/auth/register` before production.
-13. **LIKE wildcard sanitization**: Escape `%` and `_` in user-supplied search strings before `LIKE` queries.
+14. **JWT secret**: Never hardcode fallback secrets. Require `JWT_SECRET` env var or refuse to start.
+15. **Rate limiting**: Apply to `/api/auth/login` and `/api/auth/register` before production.
+16. **LIKE wildcard sanitization**: Escape `%` and `_` in user-supplied search strings before `LIKE` queries.
 
 ## Server Stack (recommended)
 - **Frontend hosting**: Vercel (managed) or Nginx on VPS ($4/mo)

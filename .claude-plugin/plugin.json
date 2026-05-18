@@ -1,9 +1,9 @@
 {
   "name": "react-fullstack-pipeline",
-  "version": "2.0.0",
-  "description": "React Full-Stack Development Pipeline — from brainstorming to backend deployment. 20 skills covering the complete React development lifecycle.",
+  "version": "2.3.0",
+  "description": "React Full-Stack Development Pipeline — from brainstorming to backend deployment. 23 skills covering the complete React development lifecycle, with triple-path training (frontend repos 4D + website design systems + backend repos 4D), 8 agent types, 63 trained knowledge entries across 16 categories.",
   "author": "React Pipeline Team",
-  "keywords": ["react", "frontend", "fullstack", "deployment", "backend", "pipeline", "tdd", "code-review"],
+  "keywords": ["react", "frontend", "fullstack", "deployment", "backend", "pipeline", "tdd", "code-review", "design-extraction", "website-learning", "backend-learning"],
   "skills": "./skills/",
   "hooks": "./hooks/hooks.json",
   "subagent_type": [
@@ -24,7 +24,12 @@
     },
     {
       "name": "react-trainer",
-      "description": "Train a GitHub React repo into the knowledge base. Clones, explores, extracts api.md + patterns.md, updates registry.",
+      "description": "Train a GitHub React repo into the knowledge base. Clones, explores, extracts 4 knowledge dimensions: api.md + patterns.md + interaction-patterns.md + design-tokens.md. Auto-detects category. Updates registry.",
+      "tools": ["Read", "Write", "Edit", "Bash", "Glob", "Grep", "WebFetch", "WebSearch"]
+    },
+    {
+      "name": "react-design-learner",
+      "description": "Analyze a live website and extract its complete design system: layout, color, typography, motion, interactions, spacing, component patterns. Fetches website, catalogs every animated element, extracts CSS custom properties, documents interaction behaviors, identifies reusable UI patterns. Outputs structured design-system.md to knowledge/websites/.",
       "tools": ["Read", "Write", "Edit", "Bash", "Glob", "Grep", "WebFetch", "WebSearch"]
     },
     {
@@ -36,6 +41,11 @@
       "name": "react-backend-engineer",
       "description": "Build backend API endpoints, database schemas, auth flows. Writes server code, tests, API documentation.",
       "tools": ["Read", "Write", "Edit", "Bash", "Glob", "Grep"]
+    },
+    {
+      "name": "react-backend-learner",
+      "description": "Search for and train high-quality backend GitHub repos (500+ stars) into the knowledge base. Covers API frameworks (Hono, Fastify, NestJS, tRPC), ORMs (Prisma, Drizzle, Kysely), auth (NextAuth, Lucia, Clerk), and backend utilities (Zod, BullMQ). Extracts 4 dimensions: api.md + patterns.md + backend-patterns.md + api-patterns.md. Updates registry.",
+      "tools": ["Read", "Write", "Edit", "Bash", "Glob", "Grep", "WebFetch", "WebSearch"]
     }
   ]
 }
