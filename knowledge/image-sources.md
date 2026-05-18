@@ -350,10 +350,17 @@ function StockImage({ source, query, width = 800, height = 600, alt = '', classN
 
 影视飓风（Mediastorm）是国内顶级影视制作团队的公开素材平台。提供专业级视频素材、照片、声音、音乐和素材包。
 
+### 两层级访问权限
+
+| 层级 | 可获取内容 | 认证要求 | 适用场景 |
+|------|-----------|----------|----------|
+| **公开 CDN** | 封面图（原图可调尺寸）、视频预览（mp4 短片段） | 无需 token | 网站配图、卡片缩略图、Hero 背景视频 |
+| **完整源文件** | 4K 原始视频（.R3D/.CRM/.MP4）、原始照片 | 需要账号登录 + 免费下单 | 视频编辑、高清素材下载 |
+
 **API Base**: `https://base.ysjf.com/media_storm`
-**CDN**: `https://public.ysjf.com/mediastorm/material/`
-**认证**: 无需 token，仅需 AppId header
-**免费额度**: 无限制（公开素材库）
+**交易 API**: `https://base.ysjf.com/storm_trade`（需要 Bearer token）
+**CDN**: `https://public.ysjf.com/mediastorm/`
+**免费额度**: 无限制
 
 ### AppId（固定值，从 JS bundle 提取）
 
@@ -414,6 +421,72 @@ GET https://base.ysjf.com/media_storm/collections/{id}
 |--------|------|
 | `time` | 最近更新 |
 | `hot` | 热度最高 |
+
+### 完整源文件下载流程（需要账号登录）
+
+所有素材在网站上都是免费"购买"的。视频的 `preview` 只是预览短片，要获取 4K 原始文件（.R3D/.CRM/.MP4 等），需要走交易流程：
+
+#### 流程（5 步）
+
+```
+1. 浏览素材 → 获取 material 和 sku 信息
+2. 加入购物车 → POST /storm_trade/shopping_cart { productId, count }
+3. 创建订单   → POST /storm_trade/order { /* cart items */ }
+4. 支付(￥0)  → POST /storm_trade/payment/{id}/action/web_pay
+5. 获取下载链接 → GET /storm_trade/order/{orderId}  (details 中含下载 URL)
+```
+
+#### 前提条件
+
+- 在 [ysjf.com](https://www.ysjf.com) 注册账号（微信/Apple/手机验证码登录）
+- 登录后从浏览器获取 Bearer token（localStorage 或 Network 面板）
+- Token 有过期时间，过期后需重新登录
+
+#### 购物车 / 订单 API
+
+```
+Base: https://base.ysjf.com/storm_trade
+Auth: Bearer {token}
+AppId: TWVkaWFTdG9ybS1XRUItamZSbHJuNDBXUEJmMkJmenE
+```
+
+| 端点 | 方法 | 说明 |
+|------|------|------|
+| `/shopping_cart` | GET | 获取购物车 |
+| `/shopping_cart` | POST | 加入购物车 `{productId, count}` |
+| `/shopping_cart/{id}` | DELETE | 移除购物车项 |
+| `/order?scope=MediaStorm` | GET | 获取订单列表 |
+| `/order` | POST | 创建订单（从购物车结算） |
+| `/order/{orderId}` | GET | 获取订单详情（含下载链接） |
+| `/order/payment/{paymentId}` | GET | 通过支付 ID 获取订单 |
+| `/payment/{id}/action/web_pay` | POST | Web 支付（￥0 订单直接完成） |
+| `/product?products=id1,id2` | GET | 批量获取商品详情 |
+
+#### 从素材到 productId
+
+素材详情中每个 SKU 有一个 `product` 字段，如：
+```json
+{
+  "skus": [{
+    "id": "s-000272033554669899776",
+    "name": "4K",
+    "price": 0.0,
+    "product": "pd-000272033555155259392",
+    "license": "personal_learning"
+  }]
+}
+```
+
+用 `product` 的值作为 `productId` 加入购物车。
+
+#### 实际的公开可用方式（推荐）
+
+对于网站开发场景，**直接用公开 CDN 的预览视频和封面图即可，不需要走交易流程**：
+
+- **视频预览**：`public.ysjf.com/mediastorm/material/material_preview/{filename}.mp4` — 足够做 Hero 背景
+- **封面图**：`public.ysjf.com/mediastorm/material/material/{filename}.jpg` — 去掉 resize 参数拿原图
+
+完整的 4K 源文件下载适合视频编辑场景，需要用户手动登录网站操作，不适合程序化集成。
 
 ### 图片 URL 处理（OSS 图片处理）
 
