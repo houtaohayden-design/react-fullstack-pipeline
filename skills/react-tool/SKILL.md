@@ -14,9 +14,10 @@ Never write custom code when a trained repository already provides the solution.
 0. Design system spec (if user selected UI style → knowledge/design-systems/)
 1. Trained repos (user's preferred libraries — now with interaction-patterns.md + design-tokens.md)
 2. Design inspiration (website design systems → knowledge/websites/<slug>/design-system.md)
-3. react-bits (animation/motion/visual effects)
-4. animal-island-ui (ONLY when 动森风格 explicitly requested)
-5. Custom implementation (only when nothing above fits)
+3. Image sources (hero photos, card thumbnails, avatars, illustrations → knowledge/image-sources.md)
+4. react-bits (animation/motion/visual effects)
+5. animal-island-ui (ONLY when 动森风格 explicitly requested)
+6. Custom implementation (only when nothing above fits)
 ```
 
 ## Knowledge Base Structure
@@ -46,9 +47,38 @@ Never write custom code when a trained repository already provides the solution.
 | P0 | Design system (if chosen) | Follow the selected premium design system spec |
 | P1 | Trained repos | Any standard UI pattern |
 | P2 | react-bits | Animation, motion, text effects, backgrounds |
-| P3 | animal-island-ui | ONLY when 动森/Animal Island style explicitly requested |
-| P4 | Custom CSS/Tailwind | Layout, spacing, colors not covered above |
-| P5 | Custom components | Only when nothing in knowledge base fits |
+| P3 | Image sources (`knowledge/image-sources.md`) | Hero images, card photos, avatars, empty state illustrations |
+| P4 | animal-island-ui | ONLY when 动森/Animal Island style explicitly requested |
+| P5 | Custom CSS/Tailwind | Layout, spacing, colors not covered above |
+| P6 | Custom components | Only when nothing in knowledge base fits |
+
+## Image Integration
+
+When a component needs images (hero, cards, avatars, empty states), use the patterns from `knowledge/image-sources.md`:
+
+**During development** — zero-config Picsum:
+```tsx
+<img src={`https://picsum.photos/400/300?random=${index}`} alt={item.title} loading="lazy" />
+```
+
+**In production** — switch to Unsplash/Pexels via env var:
+```tsx
+const imageUrl = import.meta.env.DEV
+  ? `https://picsum.photos/400/300?random=${i}`
+  : await fetchUnsplash(query).then(p => p[0]?.urls?.regular)
+```
+
+**SVG illustrations** — unDraw for empty states, onboarding:
+```tsx
+import EmptyState from '@/assets/undraw/empty.svg?react'
+```
+
+**Avatars** — DiceBear or UI Avatars (direct URL, no API key):
+```tsx
+const avatar = `https://api.dicebear.com/7.x/avataaars/svg?seed=${username}`
+```
+
+Always provide fallback to Picsum or solid color when API is unavailable.
 
 ## Premium Design Systems
 

@@ -94,12 +94,13 @@ These are presented in **Step 3** when matching libraries to the chosen design a
 
 CRITICAL: Never split discovery into multiple messages. Never present styles incrementally. ALL visual options MUST appear in this single Round 1 response.
 
-#### Discovery Questions (ask all 4 together):
+#### Discovery Questions (ask all 5 together):
 
 1. **Core Functionality** — What does the app/component DO? What actions can users take? Primary workflow?
 2. **User Personas** — Who uses it? (role, skill level, device: desktop/mobile/both)
 3. **Constraints** — Bundle size target? Accessibility (WCAG level)? Browser support? Mobile responsive? Performance goals?
 4. **Design Reference** — Figma link, mockup, existing app to emulate, or "build from scratch"? If they mention a brand (e.g., "像 Apple 一样"), reference the corresponding website design system from Part E.
+5. **Image Needs** — Will the project need images? (hero backgrounds, card thumbnails, avatars, empty state illustrations, product photos). We have free stock photo APIs (Unsplash, Pexels, Pixabay) and open-source SVG illustrations (unDraw). See `knowledge/image-sources.md`.
 
 #### 5. Visual Direction Catalog (REQUIRED — present immediately after questions 1-4)
 

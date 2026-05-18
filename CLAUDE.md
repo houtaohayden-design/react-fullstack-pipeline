@@ -99,6 +99,15 @@ Cross-cutting layers (apply to any design system):
 - `knowledge/design-systems/feedback-patterns.md` — Toast system with progress bar, 5 toast variants, linear/circular/step progress, tooltip, popover, copy feedback, anti-patterns
 - `knowledge/design-systems/onboarding-patterns.md` — 8 onboarding patterns (welcome, tour, coach marks, walkthrough, setup, prompts, checklist, video), preference picker, spotlight overlay, activation metrics, anti-patterns
 
+## Image Sources (free stock photos + illustrations)
+See `knowledge/image-sources.md` for full API reference + React integration code:
+- **开发占位**: Lorem Picsum (直接 URL, 无 API key)
+- **高质量摄影**: Unsplash (5000 req/h), Pexels (20000 req/m)
+- **照片+矢量+视频**: Pixabay
+- **开源 SVG 插画**: unDraw (可改色, MIT 开源)
+- **头像生成**: UI Avatars / DiceBear (直接 URL, 无 API key)
+- **使用模式**: 开发阶段用 Picsum (`import.meta.env.DEV`), 生产用 Unsplash/Pexels, SVG 优先用于插画
+
 ## Known Gotchas (from production pipeline verification)
 
 ### animal-island-ui
