@@ -173,4 +173,6 @@ When a task could go to either plugin:
 | "Let me show 3 styles now, then ask if they want more" | Present ALL styles in ONE message. Never incrementally. 3→4→16 is the #1 UX complaint. |
 | "I'll describe the styles in text, that's enough" | Every base design system card MUST include a CSS snippet. Visual decisions need visual previews. |
 | "The artistic styles are in the knowledge files, I'll mention them" | Show the full 16-row reference matrix inline. Never hide content behind file references. |
-| "I'll present design systems first, then artistic styles in a follow-up" | Batch everything: base systems + artistic styles + fonts + layouts in ONE catalog message. |
+| "I'll present design systems first, then artistic styles in a follow-up" | Batch everything: base systems + artistic styles + fonts + layouts + websites + image sources in ONE catalog message. |
+| "The user didn't ask about images, so I won't mention them" | Proactively present Part F (7 image sources). Don't wait for users to discover what we have. |
+| "I'll only mention what I remember — 影视飓风, unDraw, etc. are in knowledge files" | Read knowledge/image-sources.md before brainstorming. Present ALL sources. |

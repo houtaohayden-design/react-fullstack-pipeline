@@ -100,11 +100,11 @@ CRITICAL: Never split discovery into multiple messages. Never present styles inc
 2. **User Personas** — Who uses it? (role, skill level, device: desktop/mobile/both)
 3. **Constraints** — Bundle size target? Accessibility (WCAG level)? Browser support? Mobile responsive? Performance goals?
 4. **Design Reference** — Figma link, mockup, existing app to emulate, or "build from scratch"? If they mention a brand (e.g., "像 Apple 一样"), reference the corresponding website design system from Part E.
-5. **Image Needs** — Will the project need images? (hero backgrounds, card thumbnails, avatars, empty state illustrations, product photos). We have free stock photo APIs (Unsplash, Pexels, Pixabay) and open-source SVG illustrations (unDraw). See `knowledge/image-sources.md`.
+5. **Image & Media Needs** — Will the project need images, videos, or illustrations? We have 7 integrated image sources — see Part F for the full catalog.
 
-#### 5. Visual Direction Catalog (REQUIRED — present immediately after questions 1-4)
+#### 6. Resources Catalog (REQUIRED — present immediately after questions 1-5)
 
-Present the COMPLETE catalog below. This is NOT optional. Every project needs a visual direction decision.
+Present ALL 6 parts below in ONE message. This is NOT optional. Every project needs visual direction + knows what resources are available.
 
 ---
 
@@ -259,11 +259,35 @@ Reply with any brand name ("Apple", "Stripe", etc.) to see their full extracted 
 
 ---
 
+**Part F: Image & Media Sources (7 free sources available — proactive)**
+
+We have these image/video sources integrated and ready to use. Present this compact table so the user knows what's available:
+
+| # | Source | Best For | Auth |
+|---|--------|----------|------|
+| 1 | **影视飓风** | 专业摄影+4K视频素材（自然风光/动物/城市/航拍） | 无需 key |
+| 2 | Unsplash | 高质量艺术摄影，Hero 大图 | 免费 5000 req/h |
+| 3 | Pexels | 通用配图，多样性最高 | 免费 20000 req/m |
+| 4 | Pixabay | 照片+矢量图+视频 | 免费无限制 |
+| 5 | Lorem Picsum | 开发占位图 | 直接 URL |
+| 6 | unDraw | 开源 SVG 插画（空状态/Onboarding） | MIT 开源 |
+| 7 | DiceBear / UI Avatars | 头像生成 | 直接 URL |
+
+Ask the user:
+- "Will you need images/videos in this project? If so, which source fits best?"
+- "影视飓风 has professional Chinese-market photography and 4K video — ideal for content-heavy sites."
+- "For dev placeholders, Lorem Picsum needs zero setup."
+
+Detailed API docs and React hooks for all sources → `knowledge/image-sources.md`.
+
+---
+
 **After presenting the full catalog**, ask the user:
 - "Which base design system fits your project? (A: 动森 / B: shadcn / C: 玻璃拟态)"
 - "Would you like to layer an artistic style? (reply 1-16, or 'none')"
 - "Any website design inspiration you'd like to reference? (reply brand name)"
 - "Which typography pairing and layout system feel right?"
+- "Which image source would you like to use? (reply 1-7, or 'none' — we'll set it up during implementation)"
 
 **Round 2 (only if needed)** — If any answer from Round 1 needs clarification, batch ALL follow-ups into ONE message. Never ask one at a time.
 
@@ -349,3 +373,5 @@ After approval: Set up isolation with `react-pipeline:git-worktrees`, then **REQ
 | Hide artistic styles behind a "would you like to see more?" gate | Present them upfront in the catalog |
 | Ignore website design inspirations as a resource | Present the 20-site list; offer deep-dive on any brand mentioned |
 | Present trained repos as part of visual selection | Repos are for Step 3 (implementation), not visual direction |
+| Wait for user to ask "do you have image sources?" | Proactively present Part F (7 image sources) in Round 1 — never hide available resources |
+| Only mention Unsplash, forget about 影视飓风/unDraw/DiceBear | Present ALL 7 sources in Part F table |
