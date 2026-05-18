@@ -1,15 +1,25 @@
 {
   "name": "react-fullstack-pipeline",
-  "version": "2.3.0",
-  "description": "React Full-Stack Development Pipeline — from brainstorming to backend deployment. 23 skills covering the complete React development lifecycle, with triple-path training (frontend repos 4D + website design systems + backend repos 4D), 8 agent types, 63 trained knowledge entries across 16 categories.",
+  "version": "2.4.0",
+  "description": "React Full-Stack Development Pipeline — from brainstorming to backend deployment. 23 skills covering the complete React development lifecycle, with triple-path training (frontend repos 4D + website design systems + backend repos 4D), 10 agent types, 63 trained knowledge entries across 16 categories.",
   "author": "React Pipeline Team",
-  "keywords": ["react", "frontend", "fullstack", "deployment", "backend", "pipeline", "tdd", "code-review", "design-extraction", "website-learning", "backend-learning"],
+  "keywords": ["react", "frontend", "fullstack", "deployment", "backend", "pipeline", "tdd", "code-review", "design-extraction", "website-learning", "backend-learning", "parallel-agents"],
   "skills": "./skills/",
   "hooks": "./hooks/hooks.json",
   "subagent_type": [
     {
-      "name": "react-implementer",
-      "description": "Execute single React implementation task from plan. Creates components, hooks, pages following TDD.",
+      "name": "react-component-builder",
+      "description": "Build React UI components and pages following TDD. Creates components with styling, composes pages from components. Uses design-system knowledge, react-bits, framer-motion, shadcn/ui, animal-island-ui.",
+      "tools": ["Read", "Write", "Edit", "Bash", "Glob", "Grep"]
+    },
+    {
+      "name": "react-infrastructure-engineer",
+      "description": "Set up React project infrastructure: routing, state management (Zustand/Jotai), TypeScript types/interfaces, theme/design tokens, Vite configuration. Handles project scaffolding and architectural setup.",
+      "tools": ["Read", "Write", "Edit", "Bash", "Glob", "Grep"]
+    },
+    {
+      "name": "react-api-integrator",
+      "description": "Build frontend API integration layer: TanStack Query hooks, data fetching patterns, optimistic updates, API client code, form validation with react-hook-form. Connects frontend to backend APIs.",
       "tools": ["Read", "Write", "Edit", "Bash", "Glob", "Grep"]
     },
     {

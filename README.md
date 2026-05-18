@@ -1,11 +1,11 @@
 # React Full-Stack Development Pipeline
 
-> Claude Code Plugin — 23 skills, 8 agents, 63 trained entries, 20 website design systems.
+> Claude Code Plugin — 23 skills, 10 agents, 63 trained entries, 20 website design systems.
 > Complete React development lifecycle from brainstorming to backend deployment.
 
-[![Version](https://img.shields.io/badge/version-2.3.0-blue)](https://github.com/houtaohayden-design/react-fullstack-pipeline)
+[![Version](https://img.shields.io/badge/version-2.4.0-blue)](https://github.com/houtaohayden-design/react-fullstack-pipeline)
 [![Skills](https://img.shields.io/badge/skills-23-brightgreen)]()
-[![Agents](https://img.shields.io/badge/agents-8-orange)]()
+[![Agents](https://img.shields.io/badge/agents-10-orange)]()
 [![Knowledge](https://img.shields.io/badge/knowledge-63-purple)]()
 [![Websites](https://img.shields.io/badge/websites-20-pink)]()
 
@@ -80,18 +80,33 @@
 
 ---
 
-## 子代理 (8 types)
+## 子代理 (10 types)
 
+### 实现代理 (4 — subagent-dev 按任务类型自动路由)
+| 代理 | 职责 | 任务类型 |
+|------|------|----------|
+| `react-component-builder` | UI 组件 + 页面 + 样式，TDD 开发 | 组件、页面、CSS |
+| `react-infrastructure-engineer` | 路由、状态管理(Zustand/Jotai)、TypeScript 类型、主题/Tokens、项目配置 | 架构搭建 |
+| `react-api-integrator` | API 客户端、TanStack Query Hooks、乐观更新、表单验证 | 前后端对接 |
+| `react-backend-engineer` | API 端点、数据库 Schema、认证流程 | 后端 |
+
+### 审查代理 (2)
 | 代理 | 职责 | 阶段 |
 |------|------|------|
-| `react-implementer` | 执行单个任务（组件、Hooks、页面），支持并行分组调度 | 实现 |
 | `react-spec-reviewer` | 验证实现是否匹配设计规格 | 审查 Stage 1 |
 | `react-code-reviewer` | 代码质量审查：Hooks 规则、无障碍、性能 | 审查 Stage 2 |
+
+### 训练代理 (3)
+| 代理 | 职责 | 阶段 |
+|------|------|------|
 | `react-trainer` | 训练前端仓库：克隆 → 探索 → 提取 → 生成知识库文件（4D提取） | 训练 |
 | `react-design-learner` | 从网站提取完整设计系统（布局、配色、字体、动效、交互、组件） | 训练 |
 | `react-backend-learner` | 搜索并训练后端仓库（500+ stars）：API框架、ORM、认证、数据库工具 | 训练 |
+
+### 部署代理 (1)
+| 代理 | 职责 | 阶段 |
+|------|------|------|
 | `react-deployer` | 构建 → 配置 → 部署 → 验证 | 部署 |
-| `react-backend-engineer` | 构建 API 端点、数据库 Schema、认证流程 | 后端 |
 
 ---
 

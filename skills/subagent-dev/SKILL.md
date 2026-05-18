@@ -1,17 +1,36 @@
 ---
 name: react-pipeline:subagent-dev
-description: Use when executing an implementation plan with independent tasks — builds dependency graph, dispatches parallel groups, with two-stage review per task.
+description: Use when executing an implementation plan with independent tasks — builds dependency graph, dispatches parallel groups with specialized agents per task type, with two-stage review per task.
 ---
 
 # Subagent-Driven Development
 
 ## Core Principle
-Execute an implementation plan by building a dependency graph, dispatching independent tasks in parallel groups, and applying two-stage review per task. Sequential execution is the safe fallback when tasks form a chain.
+Execute an implementation plan by building a dependency graph, dispatching independent tasks in parallel groups, and applying two-stage review per task. Each task is routed to a specialized implementation agent based on its category. Sequential execution is the safe fallback when tasks form a chain.
 
 ## When to Use
 - After writing an implementation plan with `depends_on` and `parallel_group` metadata
 - Multiple independent tasks to execute
 - User wants automated review cycle
+
+## Task → Agent Routing
+
+Each task is dispatched to the agent best suited for its category:
+
+| Task Category | Agent | Examples |
+|---------------|-------|----------|
+| UI components, pages, styling | `react-component-builder` | Navbar, Hero, Card, Modal, Page layout, CSS tokens |
+| Routing, state, types, config | `react-infrastructure-engineer` | Route setup, Zustand store, TypeScript interfaces, Vite config, theme |
+| API client, data fetching, forms | `react-api-integrator` | TanStack Query hooks, fetch wrapper, optimistic update, form wiring |
+| Backend endpoints, DB, auth | `react-backend-engineer` | REST routes, middleware, Drizzle schema, JWT auth |
+
+**Auto-detection keywords** (if plan doesn't specify `agent` field):
+- Component/Page → "component", "button", "card", "modal", "page", "layout", "navbar", "hero", "footer", "sidebar", "form UI", "css", "style", "tailwind"
+- Infrastructure → "route", "router", "store", "zustand", "jotai", "context", "type", "interface", "config", "theme", "tokens", "setup", "vite", "scaffold"
+- API Integration → "api", "fetch", "query", "mutation", "tanstack", "swr", "trpc", "api client", "optimistic", "useQuery"
+- Backend → "endpoint", "schema", "database", "migration", "middleware", "auth", "jwt", "drizzle", "prisma"
+
+**Explicit override**: Plan tasks can specify `"agent": "react-component-builder"` to bypass auto-detection.
 
 ## Two Execution Modes
 
@@ -21,7 +40,8 @@ Parse plan → build dependency graph
     ↓
 For each group in topological order:
 ├── Create per-task branches: feature/<name>/task-{N}
-├── Dispatch ALL tasks in group → parallel subagents
+├── Route each task to specialized agent (component-builder | infrastructure-engineer | api-integrator | backend-engineer)
+├── Dispatch ALL tasks in group → parallel subagents (all agent types simultaneously)
 ├── Block until all implementers complete
 ├── Run two-stage review on each task (parallelizable)
 ├── Fix failures → re-review (only failing task)
@@ -32,9 +52,9 @@ For each group in topological order:
 
 ### Mode B: Sequential (when no `parallel_group` or chain dependencies)
 ```
-Task 1 → Implement → Spec Review → Code Review → Commit → Task 2 → ...
+Task 1 → Route to agent → Implement → Spec Review → Code Review → Commit → Task 2 → ...
 ```
-Identical to original behavior. The executor auto-detects which mode to use.
+Identical to original behavior. The orchestrator auto-detects which mode to use.
 
 ---
 
@@ -63,7 +83,7 @@ Example (healthy-recipes):
   Round 5: [Task 11]                      (depends on 10)
 ```
 
-### Step 3: Dispatch Parallel Group
+### Step 3: Route & Dispatch Parallel Group
 
 For each task in the ready group:
 
@@ -71,9 +91,23 @@ For each task in the ready group:
 1. CREATE per-task branch:
    git checkout -b feature/<name>/task-{N} {BASE_BRANCH}
 
-2. DISPATCH implementer (all tasks in group simultaneously):
-   SUBAGENT: react-implementer
-   Template: implementer-prompt.md
+2. DETECT agent type for each task:
+   - Check task.agent field (explicit override)
+   - Else: auto-detect from task description keywords
+   - Map: component/page tasks → react-component-builder
+          infrastructure tasks   → react-infrastructure-engineer
+          API integration tasks  → react-api-integrator
+          backend tasks          → react-backend-engineer
+
+3. SELECT prompt template:
+   - react-component-builder      → component-builder-prompt.md
+   - react-infrastructure-engineer → infrastructure-engineer-prompt.md
+   - react-api-integrator         → api-integrator-prompt.md
+   - react-backend-engineer       → (existing backend-engineer prompt)
+
+4. DISPATCH all tasks simultaneously (mixed agent types in same group):
+   SUBAGENT: <detected agent type>
+   Template: <corresponding prompt>
    Variables:
      TASK_BRANCH = feature/<name>/task-{N}
      BASE_BRANCH = feature/<name>
@@ -81,7 +115,7 @@ For each task in the ready group:
      TASK_TOTAL = total
      PLAN_PATH = <plan-path>
 
-3. WAIT for ALL implementers in the group to complete
+5. WAIT for ALL implementers in the group to complete
    (group wall-time = slowest task, not sum of all tasks)
 ```
 
@@ -105,7 +139,7 @@ FOR EACH task IN parallel_group:
   Result: PASS (proceed) or FAIL (list specific gaps)
 
 If any task FAILS:
-  - Return to implementer for THAT task only
+  - Return to THE SAME agent type for THAT task only
   - Other tasks in group are unaffected
   - Re-review the fix, then proceed
 ```
@@ -124,7 +158,7 @@ FOR EACH task IN parallel_group:
   Result: PASS | COMMENT (suggestions) | CHANGE_REQUIRED (must fix)
 
 If CHANGE_REQUIRED:
-  - Return to implementer for THAT task only
+  - Return to THE SAME agent type for THAT task only
   - Re-review after fix
 ```
 
@@ -163,6 +197,8 @@ While unexecuted tasks remain:
 
 The orchestrator (your session) manages:
 - Building and validating the dependency graph
+- Detecting agent type for each task (keyword auto-detection + explicit override)
+- Selecting the correct prompt template per agent type
 - Creating and cleaning up per-task branches
 - Deciding which mode (A or B) per group
 - Merging completed groups and running integrity checks
@@ -181,7 +217,10 @@ If a subagent asks questions:
 ---
 
 ## Model Selection
-- **react-implementer**: Fast/cheap for simple tasks, standard for complex. Same tier within a group.
+- **react-component-builder**: Fast/cheap for simple components, standard for complex UI. Same tier within a group.
+- **react-infrastructure-engineer**: Standard model (correctness matters for types/config)
+- **react-api-integrator**: Standard model (data integrity matters)
+- **react-backend-engineer**: Standard model
 - **react-spec-reviewer**: Standard model
 - **react-code-reviewer**: Most capable model (quality matters)
 

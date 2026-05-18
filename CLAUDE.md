@@ -1,4 +1,4 @@
-# React Full-Stack Pipeline v2.3
+# React Full-Stack Pipeline v2.4
 
 Complete React development lifecycle: brainstorming → worktrees → plan → subagent-dev → TDD → code-review → deploy → backend. Triple-path training: frontend repos (4D) + website design systems + backend repos (4D).
 
@@ -43,15 +43,25 @@ Complete React development lifecycle: brainstorming → worktrees → plan → s
 | `react-pipeline:api-client` | 前端 API 集成 |
 | `react-pipeline:train-backend` | 训练后端知识库 **(4D: API+Patterns+Backend+API-Design)** |
 
-## Agents (8 types)
-- **react-implementer** — Execute single task from plan (runs in parallel groups when tasks are independent)
+## Agents (10 types)
+
+### Implementation (4 — dispatched by subagent-dev with auto-routing)
+- **react-component-builder** — Build React UI components and pages with TDD. Uses design-system specs, react-bits (110+ animations), shadcn/ui, framer-motion.
+- **react-infrastructure-engineer** — Set up project architecture: routing, state management (Zustand/Jotai), TypeScript types, theme/design tokens, Vite config.
+- **react-api-integrator** — Frontend API integration: TanStack Query hooks, optimistic updates, typed fetch wrappers, form validation wiring.
+- **react-backend-engineer** — Build backend API endpoints, database schemas, auth flows.
+
+### Review (2)
 - **react-spec-reviewer** — Verify impl matches spec
 - **react-code-reviewer** — Code quality review
+
+### Training (3)
 - **react-trainer** — Train GitHub frontend repos into knowledge base (4D: api + patterns + interactions + tokens)
 - **react-design-learner** — Extract complete design system from live websites (layout, color, typography, motion, interactions, components)
 - **react-backend-learner** — Search and train backend repos (500+ stars): API frameworks, ORMs, auth, database tools (4D: api + patterns + backend-patterns + api-patterns)
+
+### Deployment (1)
 - **react-deployer** — Deploy and configure servers
-- **react-backend-engineer** — Build backend APIs
 
 ### Parallel Execution
 - Brainstorming: batches all 4 discovery questions into 1 message (saves ~3 round-trips)

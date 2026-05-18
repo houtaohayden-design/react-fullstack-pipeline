@@ -1,34 +1,55 @@
 sequenceDiagram
     participant P as Pipeline (subagent-dev)
-    participant I as react-implementer
+    participant CB as react-component-builder
+    participant IE as react-infrastructure-engineer
+    participant AI as react-api-integrator
+    participant BE as react-backend-engineer
     participant SR as react-spec-reviewer
     participant CR as react-code-reviewer
 
-    loop Each Task
-        P->>I: Dispatch task + spec
-        I->>I: Read files + knowledge base
-        I->>I: Write test (TDD)
-        I->>I: Implement code
-        I->>I: Verify tests pass
-        I->>I: Commit
-        I-->>P: Report (files, tests, commit)
-
-        P->>SR: Review spec compliance
-        SR-->>P: PASS or FAIL (with gaps)
-
-        alt FAIL
-            P->>I: Return for fixes
-            I-->>P: Fixed + new commit
-        end
-
-        P->>CR: Review code quality
-        CR-->>P: PASS / COMMENT / CHANGE_REQUIRED
-
-        alt CHANGE_REQUIRED
-            P->>I: Return for fixes
-            I-->>P: Fixed + new commit
-        end
+    Note over P: Route task to specialized agent
+    alt Component / Page / Styling task
+        P->>CB: Dispatch task + spec
+        CB->>CB: Read design system + react-bits
+        CB->>CB: Write test (TDD)
+        CB->>CB: Implement component + styles
+        CB->>CB: Verify tests pass + commit
+        CB-->>P: Report (files, tests, commit)
+    else Infrastructure / Routing / State task
+        P->>IE: Dispatch task + spec
+        IE->>IE: Read patterns (router, zustand, types)
+        IE->>IE: Write test (TDD)
+        IE->>IE: Implement config/store/types
+        IE->>IE: Verify tests pass + commit
+        IE-->>P: Report (files, tests, commit)
+    else API Integration / Data Fetching task
+        P->>AI: Dispatch task + spec
+        AI->>AI: Read TanStack Query patterns
+        AI->>AI: Write test (TDD)
+        AI->>AI: Implement hooks + client
+        AI->>AI: Verify tests pass + commit
+        AI-->>P: Report (files, tests, commit)
+    else Backend / API task
+        P->>BE: Dispatch task + spec
+        BE->>BE: Read backend patterns
+        BE->>BE: Write test (TDD)
+        BE->>BE: Implement endpoint/schema
+        BE->>BE: Verify tests pass + commit
+        BE-->>P: Report (files, tests, commit)
     end
 
-    P->>P: All tasks complete
-    Note over P: Trigger finish-branch
+    P->>SR: Review spec compliance
+    SR-->>P: PASS or FAIL (with gaps)
+
+    alt FAIL
+        P->>P: Return to same agent for fixes
+    end
+
+    P->>CR: Review code quality
+    CR-->>P: PASS / COMMENT / CHANGE_REQUIRED
+
+    alt CHANGE_REQUIRED
+        P->>P: Return to same agent for fixes
+    end
+
+    Note over P: All tasks complete → Trigger finish-branch
